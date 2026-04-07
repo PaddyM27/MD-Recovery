@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MD Recovery, Transport & Repairs | Cavan</title>
+  <meta name="description" content="24/7 breakdown recovery, vehicle transport, mechanical repairs and diagnostics in Cavan and surrounding counties. Call 085 233 0052." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink:    { 950: '#060d1b', 900: '#091526', 800: '#0e2040', 700: '#163060' },
+            cobalt: { DEFAULT: '#1A5FD4', light: '#3578e8', muted: '#1248a8' },
+            slate2: { DEFAULT: '#8299b5', light: '#aabdce' },
+            surface: '#EFF4FB',
+          },
+          fontFamily: {
+            display: ['Outfit', 'sans-serif'],
+            body:    ['Inter', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html  { scroll-behavior: smooth; }
+    body  {
+      font-family: 'Inter', sans-serif;
+      background: #EFF4FB;
+      color: #091526;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ─── TYPOGRAPHY ─────────────────────────────────────────── */
+    .heading-xl {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      line-height: 0.92;
+      letter-spacing: -0.05em;
+    }
+    .heading-lg {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+    .heading-md {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+    }
+    .label-caps {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.7rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    /* ─── GRAIN (pointer-events-none fixed pseudo — no GPU repaint) */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+    }
+
+    /* ─── NAV ────────────────────────────────────────────────── */
+    .nav-bar {
+      background: rgba(9,21,38,0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-bar.scrolled { box-shadow: 0 4px 32px rgba(0,0,0,0.35); }
+    .nav-link {
+      position: relative;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: #8299b5;
+      transition: color 0.15s ease;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0; right: 0;
+      height: 1px;
+      background: #1A5FD4;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.2s cubic-bezier(0.16,1,0.3,1);
+    }
+    .nav-link:hover { color: #fff; }
+    .nav-link:hover::after { transform: scaleX(1); }
+
+    /* ─── BUTTONS ────────────────────────────────────────────── */
+    .btn-primary {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      background: #1A5FD4;
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(26,95,212,0.38), inset 0 1px 0 rgba(255,255,255,0.12);
+      transition: transform 0.18s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.18s ease, background 0.15s ease;
+    }
+    .btn-primary:hover {
+      background: #2c6fe0;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(26,95,212,0.48), inset 0 1px 0 rgba(255,255,255,0.14);
+    }
+    .btn-primary:active {
+      transform: translateY(1px) scale(0.99);
+      box-shadow: 0 2px 10px rgba(26,95,212,0.3);
+    }
+    .btn-primary:focus-visible { outline: 2px solid #3578e8; outline-offset: 3px; }
+
+    .btn-outline {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      color: #fff;
+      border: 1.5px solid rgba(255,255,255,0.28);
+      background: rgba(255,255,255,0.04);
+      transition: transform 0.18s cubic-bezier(0.34,1.56,0.64,1), border-color 0.15s ease, background 0.15s ease;
+    }
+    .btn-outline:hover {
+      border-color: rgba(255,255,255,0.55);
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-2px);
+    }
+    .btn-outline:active  { transform: translateY(1px); }
+    .btn-outline:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
+    /* ─── PHONE PULSE ────────────────────────────────────────── */
+    @keyframes pulse-ring {
+      0%   { box-shadow: 0 4px 18px rgba(26,95,212,0.38), inset 0 1px 0 rgba(255,255,255,0.12), 0 0 0 0 rgba(26,95,212,0.5); }
+      60%  { box-shadow: 0 4px 18px rgba(26,95,212,0.38), inset 0 1px 0 rgba(255,255,255,0.12), 0 0 0 14px rgba(26,95,212,0); }
+      100% { box-shadow: 0 4px 18px rgba(26,95,212,0.38), inset 0 1px 0 rgba(255,255,255,0.12), 0 0 0 0 rgba(26,95,212,0); }
+    }
+    .phone-pulse { animation: pulse-ring 2.8s ease-out infinite; }
+
+    /* ─── ENTRANCE ANIMATIONS ────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .anim { animation: fadeUp 0.65s cubic-bezier(0.22,1,0.36,1) both; }
+    .d1 { animation-delay: 0.08s; }
+    .d2 { animation-delay: 0.18s; }
+    .d3 { animation-delay: 0.28s; }
+    .d4 { animation-delay: 0.38s; }
+    .d5 { animation-delay: 0.48s; }
+
+    /* ─── HERO ───────────────────────────────────────────────── */
+    .hero-wrap {
+      min-height: 100dvh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: #060d1b;
+    }
+    @media (max-width: 768px) {
+      .hero-wrap {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        position: relative;
+      }
+      .hero-photo-col {
+        display: none;
+      }
+      .hero-wrap::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url('WhatsApp%20Image%202026-04-07%20at%2016.35.53%20(1).jpeg');
+        background-size: cover;
+        background-position: center 40%;
+        opacity: 0.15;
+        z-index: 0;
+      }
+    }
+
+    .hero-content-col {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 4rem 4rem 5vw;
+    }
+    @media (max-width: 1280px) {
+      .hero-content-col { padding: 7rem 3rem 4rem 3rem; }
+    }
+    @media (max-width: 768px) {
+      .hero-content-col { padding: 6rem 1.5rem 3rem 1.5rem; }
+    }
+
+    .hero-photo-col {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-photo-col img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 40%;
+      display: block;
+    }
+    /* Fade photo into the dark left side */
+    .hero-photo-col::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to right,
+        rgba(6,13,27,1) 0%,
+        rgba(6,13,27,0.45) 25%,
+        rgba(6,13,27,0.1) 60%,
+        rgba(6,13,27,0) 100%
+      ),
+      linear-gradient(
+        to bottom,
+        rgba(6,13,27,0.5) 0%,
+        transparent 20%,
+        transparent 75%,
+        rgba(6,13,27,0.6) 100%
+      );
+    }
+    /* Blue glow bleed from left */
+    .hero-photo-col::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: radial-gradient(ellipse 60% 80% at 0% 60%, rgba(26,95,212,0.18) 0%, transparent 70%);
+    }
+
+    /* ─── BADGE (liquid glass) ───────────────────────────────── */
+    .badge-glass {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.375rem 0.875rem;
+      border-radius: 99px;
+      background: rgba(26,95,212,0.14);
+      border: 1px solid rgba(26,95,212,0.4);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    /* ─── SERVICE BENTO ──────────────────────────────────────── */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1.25rem;
+    }
+    @media (max-width: 900px) {
+      .bento-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+      }
+      .bento-feature { grid-column: 1 / -1; }
+    }
+    @media (max-width: 560px) {
+      .bento-grid { grid-template-columns: 1fr; }
+      .bento-feature { grid-column: 1; }
+    }
+
+    .bento-card {
+      background: #fff;
+      border-radius: 20px;
+      border-top: 3px solid #1A5FD4;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.125rem;
+      box-shadow:
+        0 2px 4px -1px rgba(9,21,38,0.06),
+        0 6px 12px -4px rgba(9,21,38,0.05),
+        0 0 0 1px rgba(26,95,212,0.05);
+      transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.22s ease;
+    }
+    .bento-card:hover {
+      transform: translateY(-4px);
+      box-shadow:
+        0 12px 28px -8px rgba(9,21,38,0.14),
+        0 4px 8px -2px rgba(26,95,212,0.1),
+        0 0 0 1px rgba(26,95,212,0.1);
+    }
+    .bento-feature {
+      grid-column: 1 / 2;
+      grid-row: 1 / 3;
+      background: #091526;
+      border-top: 3px solid #1A5FD4;
+      border-radius: 20px;
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 1.25rem;
+      min-height: 340px;
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        0 8px 24px -6px rgba(9,21,38,0.3),
+        0 0 0 1px rgba(26,95,212,0.1);
+      transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.22s ease;
+    }
+    .bento-feature::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 20% 80%, rgba(26,95,212,0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .bento-feature:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px -10px rgba(9,21,38,0.4), 0 0 0 1px rgba(26,95,212,0.18);
+    }
+
+    .icon-wrap {
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: 12px;
+      background: rgba(26,95,212,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* ─── TRUST STRIP ────────────────────────────────────────── */
+    .trust-item {
+      text-align: center;
+      padding: 1.75rem 1.5rem;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+      transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .trust-item:hover { transform: translateY(-2px); }
+
+    /* ─── COUNTY PILLS ───────────────────────────────────────── */
+    .county-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 99px;
+      background: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: #091526;
+      box-shadow: 0 2px 4px -1px rgba(9,21,38,0.07), 0 0 0 1px rgba(26,95,212,0.07);
+      transition: transform 0.18s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.18s ease;
+    }
+    .county-pill:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(26,95,212,0.22), 0 0 0 1px rgba(26,95,212,0.12);
+    }
+
+    /* ─── MAP VISUAL ─────────────────────────────────────────── */
+    .map-visual {
+      background: #091526;
+      border-radius: 20px;
+      aspect-ratio: 4/3;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 24px -6px rgba(9,21,38,0.3), 0 0 0 1px rgba(26,95,212,0.1);
+    }
+    .map-visual::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(26,95,212,0.22) 0%, transparent 65%);
+    }
+
+    /* ─── DIAGNOSTIC WIDE CARD ──────────────────────────────── */
+    .bento-diag { grid-column: 2 / 4; }
+
+    /* ─── CARD LINK ──────────────────────────────────────────── */
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: #1A5FD4;
+      transition: gap 0.15s ease, color 0.15s ease;
+    }
+    .card-link:hover { gap: 0.625rem; color: #2c6fe0; }
+    .card-link:focus-visible { outline: 2px solid #1A5FD4; border-radius: 4px; }
+
+    /* ═══════════════════════════════════════════════════════════
+       MOBILE OVERRIDES  ≤ 768px
+    ═══════════════════════════════════════════════════════════ */
+    @media (max-width: 768px) {
+
+      /* ── Hero ── */
+      .hero-wrap::before { opacity: 0.22; } /* slightly more visible truck on mobile */
+
+      .hero-content-col { padding: 5.5rem 1.25rem 2.5rem; }
+
+      /* badge: smaller text */
+      .badge-glass { padding: 0.3rem 0.75rem; }
+      .badge-glass .label-caps { font-size: 0.62rem; letter-spacing: 0.1em; }
+
+      /* CTAs stack full-width */
+      .hero-cta-group {
+        flex-direction: column;
+        width: 100%;
+      }
+      .hero-cta-group a {
+        width: 100% !important;
+        justify-content: center;
+      }
+      /* Phone button size reduction on mobile */
+      .hero-phone-btn {
+        font-size: 1.25rem !important;
+        padding: 0.875rem 1.5rem !important;
+      }
+      /* Outline button */
+      .hero-outline-btn {
+        font-size: 0.9375rem !important;
+        padding: 0.875rem 1.5rem !important;
+      }
+
+      /* stat strip: 2-column grid instead of free-wrap */
+      .hero-stats {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.625rem 1.5rem;
+      }
+
+      /* ── Services ── */
+      /* single column for ALL cards */
+      .bento-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem;
+      }
+      .bento-feature {
+        grid-column: 1 !important;
+        grid-row: auto !important;
+        min-height: 260px;
+        padding: 1.75rem;
+      }
+      .bento-card { padding: 1.5rem; }
+      /* diagnostic card: reset the inline grid-column override */
+      .bento-diag { grid-column: 1 !important; }
+      .bento-diag .bento-diag-inner {
+        flex-direction: column !important;
+        gap: 1rem !important;
+      }
+
+      /* ── Why Us ── */
+      .why-photo { max-height: 220px !important; }
+
+      /* ── Coverage ── */
+      .coverage-section { padding-top: 3.5rem; padding-bottom: 3.5rem; }
+      .map-visual { aspect-ratio: 16/9; }
+
+      /* ── Contact ── */
+      .contact-phone-btn {
+        width: 100% !important;
+        font-size: 1.5rem !important;
+        padding: 1.125rem 1.5rem !important;
+        justify-content: center;
+      }
+      .contact-email-btn {
+        width: 100% !important;
+        justify-content: center;
+      }
+
+      /* ── General section spacing ── */
+      .section-mobile-pad { padding-top: 4rem !important; padding-bottom: 4rem !important; }
+    }
+
+    /* ── Small phones ≤ 390px ── */
+    @media (max-width: 390px) {
+      .hero-content-col { padding: 5rem 1rem 2rem; }
+      .bento-feature { min-height: 220px; padding: 1.5rem; }
+      .contact-phone-btn { font-size: 1.25rem !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+  <nav id="navbar" class="nav-bar fixed top-0 left-0 right-0 z-50 transition-shadow duration-300">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="flex items-center justify-between" style="height: 4rem;">
+
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-2.5 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt rounded-sm" aria-label="MD Recovery home">
+          <div class="rounded-full" style="width:3px; height:2rem; background:#1A5FD4; transition: transform 0.18s cubic-bezier(0.34,1.56,0.64,1); transform-origin: bottom;"
+               data-logo-bar></div>
+          <div>
+            <span class="heading-md text-white block" style="font-size:1.0625rem;">MD Recovery</span>
+            <span class="label-caps" style="color:#8299b5; font-size:0.6rem;">Transport & Repairs · Cavan</span>
+          </div>
+        </a>
+
+        <!-- Desktop links -->
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#services"  class="nav-link">Services</a>
+          <a href="#why-us"    class="nav-link">Why Us</a>
+          <a href="#coverage"  class="nav-link">Coverage</a>
+          <a href="#contact"   class="nav-link">Contact</a>
+        </div>
+
+        <!-- CTA -->
+        <a href="tel:0852330052"
+           class="btn-primary hidden sm:flex items-center gap-2 rounded-full text-sm"
+           style="padding: 0.5625rem 1.25rem;"
+           aria-label="Call 085 233 0052">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+          </svg>
+          085 233 0052
+        </a>
+
+        <!-- Mobile toggle -->
+        <button id="mob-btn" class="md:hidden rounded-lg p-2 hover:bg-white/10 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt"
+                aria-label="Open menu" aria-expanded="false" style="color:#8299b5;">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile drawer -->
+    <div id="mob-menu" class="hidden md:hidden" style="border-top:1px solid rgba(255,255,255,0.07);">
+      <div class="px-6 py-5 flex flex-col gap-5">
+        <a href="#services"  class="nav-link text-sm">Services</a>
+        <a href="#why-us"    class="nav-link text-sm">Why Us</a>
+        <a href="#coverage"  class="nav-link text-sm">Coverage</a>
+        <a href="#contact"   class="nav-link text-sm">Contact</a>
+        <a href="tel:0852330052"
+           class="btn-primary flex items-center justify-center gap-2 rounded-full py-3"
+           style="font-size:0.9375rem;">
+          Call Now: 085 233 0052
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       HERO — Asymmetric split: content left · photo right
+  ============================================================ -->
+  <section class="hero-wrap">
+
+    <!-- LEFT: content -->
+    <div class="hero-content-col">
+
+      <!-- Liquid glass badge -->
+      <div class="badge-glass anim mb-8" style="align-self: flex-start;">
+        <span style="width:6px;height:6px;border-radius:50%;background:#4d9fff;display:inline-block;animation:pulse 2s ease-in-out infinite;" aria-hidden="true"></span>
+        <span class="label-caps" style="color:#93c5fd;">24/7 · Cavan & Surrounding Counties</span>
+      </div>
+
+      <!-- Headline — Outfit 900, no gradient text -->
+      <h1 class="heading-xl anim d1 text-white mb-6"
+          style="font-size: clamp(3rem, 5.5vw, 5.25rem);">
+        Stranded?<br/>
+        <span style="color: #60a5fa;">We're On<br/>Our Way.</span>
+      </h1>
+
+      <!-- Sub -->
+      <p class="anim d2 mb-10"
+         style="font-family:'Inter',sans-serif; font-weight:400; font-size:1.0625rem; line-height:1.75; color:#8299b5; max-width:34rem;">
+        Fast, professional recovery, repairs &amp; storage across Cavan and surrounding counties. Day or night — we've got you covered.
+      </p>
+
+      <!-- CTAs -->
+      <div class="hero-cta-group anim d3 flex flex-wrap gap-4 mb-12">
+        <a href="tel:0852330052"
+           class="hero-phone-btn btn-primary phone-pulse flex items-center gap-3 rounded-2xl"
+           style="padding:1rem 2rem; font-size:clamp(1.125rem,2.5vw,1.375rem); letter-spacing:-0.025em;"
+           aria-label="Call 085 233 0052">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+          </svg>
+          085 233 0052
+        </a>
+        <a href="#services"
+           class="hero-outline-btn btn-outline flex items-center gap-2 rounded-2xl"
+           style="padding:1rem 1.75rem; font-size:0.9375rem;">
+          Our Services
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 5v14M5 12l7 7 7-7"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Stat strip -->
+      <div class="hero-stats anim d4 flex flex-wrap gap-x-7 gap-y-3">
+        <div class="flex items-center gap-2">
+          <span style="width:5px;height:5px;border-radius:50%;background:#1A5FD4;display:inline-block;flex-shrink:0;"></span>
+          <span style="font-family:'Inter',sans-serif;font-size:0.8125rem;font-weight:500;color:#8299b5;">24/7 Available</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span style="width:5px;height:5px;border-radius:50%;background:#1A5FD4;display:inline-block;flex-shrink:0;"></span>
+          <span style="font-family:'Inter',sans-serif;font-size:0.8125rem;font-weight:500;color:#8299b5;">Fast Response</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span style="width:5px;height:5px;border-radius:50%;background:#1A5FD4;display:inline-block;flex-shrink:0;"></span>
+          <span style="font-family:'Inter',sans-serif;font-size:0.8125rem;font-weight:500;color:#8299b5;">Based in Cavan</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span style="width:5px;height:5px;border-radius:50%;background:#1A5FD4;display:inline-block;flex-shrink:0;"></span>
+          <span style="font-family:'Inter',sans-serif;font-size:0.8125rem;font-weight:500;color:#8299b5;">Fully Equipped</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: photo — fades into left -->
+    <div class="hero-photo-col">
+      <img
+        src="WhatsApp%20Image%202026-04-07%20at%2016.35.53%20(1).jpeg"
+        alt="MD Recovery flatbed truck transporting vehicles in Cavan"
+      />
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SERVICES — Asymmetric bento grid
+  ============================================================ -->
+  <section id="services" class="py-24 lg:py-32" style="background: #EFF4FB; background-image: radial-gradient(circle at 85% 15%, rgba(26,95,212,0.05) 0%, transparent 50%);">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+
+      <div class="mb-14">
+        <span class="label-caps" style="color:#1A5FD4; display:block; margin-bottom:0.75rem;">What We Do</span>
+        <h2 class="heading-lg" style="font-size:clamp(1.875rem,4vw,2.875rem); color:#091526; max-width:26rem;">
+          Everything You Need,<br/>When You Need It
+        </h2>
+      </div>
+
+      <!-- Bento: feature left (spans 2 rows) + 2 right + 2 bottom-right -->
+      <div class="bento-grid">
+
+        <!-- FEATURE: Breakdown & Recovery -->
+        <div class="bento-feature">
+          <!-- Large truck image in feature card -->
+          <div style="position:absolute;inset:0;overflow:hidden;border-radius:20px;">
+            <img src="WhatsApp%20Image%202026-04-07%20at%2016.35.53.jpeg"
+                 alt="MD Recovery truck with forklift"
+                 style="width:100%;height:100%;object-fit:cover;object-position:center 55%;opacity:0.28;"
+            />
+          </div>
+          <div style="position:relative;z-index:2;">
+            <div class="icon-wrap" style="background:rgba(26,95,212,0.2); margin-bottom:0.5rem;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/>
+                <circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+              </svg>
+            </div>
+            <h3 class="heading-md text-white mb-2" style="font-size:1.375rem;">Breakdown &amp;<br/>Recovery</h3>
+            <p style="font-family:'Inter',sans-serif;font-size:0.875rem;line-height:1.7;color:#8299b5;">
+              24/7 roadside call-out, towing, and accident recovery. We mobilise fast — wherever you are across Cavan and beyond.
+            </p>
+            <a href="tel:0852330052" class="card-link" style="color:#60a5fa; margin-top:0.75rem;">
+              Call now
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Storage -->
+        <div class="bento-card">
+          <div class="icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A5FD4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="heading-md mb-1.5" style="font-size:1.0625rem; color:#091526;">Storage Facility</h3>
+            <p style="font-family:'Inter',sans-serif;font-size:0.8125rem;line-height:1.7;color:#5a7496;">Secure short and long-term vehicle storage while you arrange next steps.</p>
+          </div>
+          <a href="tel:0852330052" class="card-link">
+            Enquire
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        <!-- Mechanical -->
+        <div class="bento-card">
+          <div class="icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A5FD4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="heading-md mb-1.5" style="font-size:1.0625rem; color:#091526;">Mechanical Repairs</h3>
+            <p style="font-family:'Inter',sans-serif;font-size:0.8125rem;line-height:1.7;color:#5a7496;">Full servicing and mechanical work. Minor fixes to major jobs — done properly.</p>
+          </div>
+          <a href="tel:0852330052" class="card-link">
+            Book a repair
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        <!-- Diagnostics -->
+        <div class="bento-card bento-diag">
+          <div class="bento-diag-inner" style="display:flex;align-items:flex-start;gap:1.25rem;flex-wrap:wrap;">
+            <div class="icon-wrap" style="flex-shrink:0;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A5FD4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                <line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+                <path d="M7 10h2l2-4 2 8 2-4h2"/>
+              </svg>
+            </div>
+            <div style="flex:1;min-width:0;">
+              <h3 class="heading-md mb-1.5" style="font-size:1.0625rem; color:#091526;">Diagnostic Scans</h3>
+              <p style="font-family:'Inter',sans-serif;font-size:0.8125rem;line-height:1.7;color:#5a7496;">Plug-in diagnostic scans to identify faults fast. Know exactly what's wrong before spending a penny on repairs.</p>
+            </div>
+            <a href="tel:0852330052" class="card-link" style="align-self:flex-end;">
+              Book a scan
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+
+      </div><!-- /bento-grid -->
+    </div>
+  </section>
+
+  <!-- ============================================================
+       WHY US — dark, trust signals
+  ============================================================ -->
+  <section id="why-us" class="py-20 lg:py-28 relative overflow-hidden" style="background:#060d1b;">
+    <!-- Radial glows -->
+    <div style="position:absolute;top:-15%;right:-8%;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(26,95,212,0.14) 0%,transparent 70%);pointer-events:none;" aria-hidden="true"></div>
+    <div style="position:absolute;bottom:-15%;left:-8%;width:460px;height:460px;border-radius:50%;background:radial-gradient(circle,rgba(26,95,212,0.1) 0%,transparent 70%);pointer-events:none;" aria-hidden="true"></div>
+
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 relative" style="z-index:1;">
+
+      <div class="text-center mb-14">
+        <span class="label-caps" style="color:#1A5FD4; display:block; margin-bottom:0.75rem;">Why MD Recovery</span>
+        <h2 class="heading-lg text-white" style="font-size:clamp(1.75rem,4vw,2.75rem);">Professional. Fast. Local.</h2>
+      </div>
+
+      <!-- Second truck photo -->
+      <div class="why-photo" style="border-radius:20px;overflow:hidden;max-height:360px;margin-bottom:3rem;position:relative;">
+        <img src="WhatsApp%20Image%202026-04-07%20at%2016.35.53%20(1).jpeg"
+             alt="MD Recovery flatbed truck in Cavan"
+             style="width:100%;max-height:360px;object-fit:cover;object-position:center 45%;display:block;"
+        />
+        <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(6,13,27,0.5) 0%, transparent 40%, rgba(6,13,27,0.5) 100%), linear-gradient(to bottom,transparent 50%,rgba(6,13,27,0.65) 100%);"></div>
+      </div>
+
+      <!-- 4 trust items -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+
+        <div class="trust-item">
+          <div style="width:3.25rem;height:3.25rem;border-radius:14px;background:rgba(26,95,212,0.14);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3 class="heading-md text-white mb-1.5" style="font-size:0.9375rem;">24/7 Availability</h3>
+          <p style="font-family:'Inter',sans-serif;font-size:0.8rem;line-height:1.65;color:#8299b5;">Day, night, weekend or bank holiday — one call away.</p>
+        </div>
+
+        <div class="trust-item">
+          <div style="width:3.25rem;height:3.25rem;border-radius:14px;background:rgba(26,95,212,0.14);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <h3 class="heading-md text-white mb-1.5" style="font-size:0.9375rem;">Fast Response</h3>
+          <p style="font-family:'Inter',sans-serif;font-size:0.8rem;line-height:1.65;color:#8299b5;">We mobilise quickly so you're not left waiting on the roadside.</p>
+        </div>
+
+        <div class="trust-item">
+          <div style="width:3.25rem;height:3.25rem;border-radius:14px;background:rgba(26,95,212,0.14);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <h3 class="heading-md text-white mb-1.5" style="font-size:0.9375rem;">Local Expertise</h3>
+          <p style="font-family:'Inter',sans-serif;font-size:0.8rem;line-height:1.65;color:#8299b5;">Based in Cavan, with deep knowledge of local roads and the area.</p>
+        </div>
+
+        <div class="trust-item">
+          <div style="width:3.25rem;height:3.25rem;border-radius:14px;background:rgba(26,95,212,0.14);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3 class="heading-md text-white mb-1.5" style="font-size:0.9375rem;">Fully Equipped</h3>
+          <p style="font-family:'Inter',sans-serif;font-size:0.8rem;line-height:1.65;color:#8299b5;">Professional fleet and tooling for cars, commercials and more.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       COVERAGE
+  ============================================================ -->
+  <section id="coverage" class="py-24 lg:py-32" style="background:#EFF4FB;">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+        <div>
+          <span class="label-caps" style="color:#1A5FD4; display:block; margin-bottom:0.75rem;">Coverage Area</span>
+          <h2 class="heading-lg mb-6" style="font-size:clamp(1.75rem,4vw,2.75rem); color:#091526;">Where We Operate</h2>
+          <p style="font-family:'Inter',sans-serif;font-size:1.0625rem;line-height:1.75;color:#5a7496;margin-bottom:2rem;">
+            Based in Cavan and covering the surrounding counties — we're never far away when you need us most. Whether you're on a back road in Leitrim or a motorway in Meath, we'll get to you.
+          </p>
+
+          <!-- County pills -->
+          <div style="display:flex;flex-wrap:wrap;gap:0.625rem;margin-bottom:2.5rem;">
+            <span class="county-pill"><span style="width:6px;height:6px;border-radius:50%;background:#1A5FD4;display:inline-block;"></span>Cavan</span>
+            <span class="county-pill"><span style="width:6px;height:6px;border-radius:50%;background:#1A5FD4;display:inline-block;"></span>Monaghan</span>
+            <span class="county-pill"><span style="width:6px;height:6px;border-radius:50%;background:#1A5FD4;display:inline-block;"></span>Meath</span>
+            <span class="county-pill"><span style="width:6px;height:6px;border-radius:50%;background:#1A5FD4;display:inline-block;"></span>Leitrim</span>
+            <span class="county-pill"><span style="width:6px;height:6px;border-radius:50%;background:#1A5FD4;display:inline-block;"></span>Longford</span>
+            <span class="county-pill"><span style="width:6px;height:6px;border-radius:50%;background:#1A5FD4;display:inline-block;"></span>Roscommon</span>
+            <span style="display:inline-flex;align-items:center;padding:0.5rem 1rem;border-radius:99px;border:1px dashed rgba(26,95,212,0.35);font-family:'Inter',sans-serif;font-size:0.8125rem;font-weight:500;color:#1A5FD4;background:rgba(26,95,212,0.05);">
+              &amp; more on request
+            </span>
+          </div>
+
+          <blockquote style="padding-left:1.25rem;border-left:3px solid #1A5FD4;">
+            <p class="heading-md" style="font-size:1.0625rem;font-style:italic;color:#0e2040;line-height:1.55;">
+              "Based in Cavan — never far away<br/>when you need us most."
+            </p>
+          </blockquote>
+        </div>
+
+        <!-- Map visual -->
+        <div class="map-visual">
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1;gap:0.875rem;">
+            <!-- Rings -->
+            <div style="position:absolute;width:200px;height:200px;border-radius:50%;border:1px solid rgba(26,95,212,0.2);" aria-hidden="true"></div>
+            <div style="position:absolute;width:300px;height:300px;border-radius:50%;border:1px solid rgba(26,95,212,0.12);" aria-hidden="true"></div>
+            <div style="position:absolute;width:400px;height:400px;border-radius:50%;border:1px solid rgba(26,95,212,0.07);" aria-hidden="true"></div>
+            <!-- Pin -->
+            <div style="position:relative;z-index:2;text-align:center;">
+              <div style="width:4.5rem;height:4.5rem;border-radius:50%;background:rgba(26,95,212,0.18);box-shadow:0 0 0 10px rgba(26,95,212,0.07),0 0 0 22px rgba(26,95,212,0.04);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <p class="heading-md text-white" style="font-size:1.125rem;">Cavan, Ireland</p>
+              <p style="font-family:'Inter',sans-serif;font-size:0.8125rem;color:#8299b5;margin-top:0.25rem;">&amp; Surrounding Counties</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONTACT CTA
+  ============================================================ -->
+  <section id="contact" class="py-24 lg:py-32 relative overflow-hidden" style="background:#060d1b;">
+    <!-- Centre glow -->
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:350px;border-radius:50%;background:radial-gradient(ellipse,rgba(26,95,212,0.2) 0%,transparent 70%);pointer-events:none;" aria-hidden="true"></div>
+
+    <div class="max-w-3xl mx-auto px-6 lg:px-8 text-center relative" style="z-index:1;">
+      <span class="label-caps" style="color:#1A5FD4; display:block; margin-bottom:1rem;">Get In Touch</span>
+
+      <h2 class="heading-xl text-white mb-4" style="font-size:clamp(2.25rem,5.5vw,4rem);">
+        Need Help<br/>Right Now?
+      </h2>
+
+      <p style="font-family:'Inter',sans-serif;font-size:1.0625rem;line-height:1.75;color:#8299b5;max-width:30rem;margin:0 auto 3rem;">
+        Available 24 hours a day, 7 days a week. Call us directly and we'll be on our way.
+      </p>
+
+      <!-- Giant phone -->
+      <a href="tel:0852330052"
+         class="contact-phone-btn btn-primary phone-pulse inline-flex items-center gap-4 rounded-2xl mx-auto mb-5"
+         style="padding:1.25rem 2.75rem; font-size:clamp(1.5rem,4vw,2.25rem); letter-spacing:-0.04em; font-family:'Outfit',sans-serif; font-weight:900;"
+         aria-label="Call 085 233 0052">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+        </svg>
+        085 233 0052
+      </a>
+
+      <div style="display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;">
+        <a href="mailto:Martindempsey5588@gmail.com"
+           class="contact-email-btn btn-outline inline-flex items-center gap-2.5 rounded-2xl"
+           style="padding:1rem 1.75rem; font-size:0.9375rem;"
+           aria-label="Email Martindempsey5588@gmail.com">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+          Send an Email
+        </a>
+      </div>
+
+      <p class="label-caps" style="color:rgba(130,153,181,0.4);margin-top:3rem;">
+        Available 24 hours · 7 days a week · Cavan &amp; Surrounding Counties
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="py-10" style="background:#060d1b;border-top:1px solid rgba(255,255,255,0.05);">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+
+        <div>
+          <div class="flex items-center gap-2.5 mb-3">
+            <div style="width:3px;height:2rem;border-radius:99px;background:#1A5FD4;flex-shrink:0;"></div>
+            <div>
+              <span class="heading-md text-white block" style="font-size:1rem;">MD Recovery</span>
+              <span class="label-caps" style="color:#8299b5;font-size:0.6rem;">Transport &amp; Repairs · Cavan, Ireland</span>
+            </div>
+          </div>
+          <p style="font-family:'Inter',sans-serif;font-size:0.75rem;line-height:1.6;color:rgba(130,153,181,0.55);max-width:20rem;">
+            Fast, professional recovery, repairs &amp; storage across Cavan and surrounding counties.
+          </p>
+        </div>
+
+        <nav style="display:flex;flex-wrap:wrap;gap:1.25rem 2.5rem;" aria-label="Footer navigation">
+          <a href="#services"  style="font-family:'Inter',sans-serif;font-size:0.75rem;color:rgba(130,153,181,0.55);transition:color 0.15s;" onmouseover="this.style.color='#8299b5'" onmouseout="this.style.color='rgba(130,153,181,0.55)'">Services</a>
+          <a href="#why-us"    style="font-family:'Inter',sans-serif;font-size:0.75rem;color:rgba(130,153,181,0.55);transition:color 0.15s;" onmouseover="this.style.color='#8299b5'" onmouseout="this.style.color='rgba(130,153,181,0.55)'">Why Us</a>
+          <a href="#coverage"  style="font-family:'Inter',sans-serif;font-size:0.75rem;color:rgba(130,153,181,0.55);transition:color 0.15s;" onmouseover="this.style.color='#8299b5'" onmouseout="this.style.color='rgba(130,153,181,0.55)'">Coverage</a>
+          <a href="tel:0852330052" style="font-family:'Inter',sans-serif;font-size:0.75rem;color:#1A5FD4;transition:color 0.15s;" onmouseover="this.style.color='#3578e8'" onmouseout="this.style.color='#1A5FD4'">085 233 0052</a>
+          <a href="mailto:Martindempsey5588@gmail.com" style="font-family:'Inter',sans-serif;font-size:0.75rem;color:rgba(130,153,181,0.55);transition:color 0.15s;" onmouseover="this.style.color='#8299b5'" onmouseout="this.style.color='rgba(130,153,181,0.55)'">Email</a>
+        </nav>
+      </div>
+
+      <div style="margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,0.05);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:0.75rem;">
+        <p style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(130,153,181,0.3);">© 2026 MD Recovery, Transport &amp; Repairs. Cavan, Ireland.</p>
+        <p style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(130,153,181,0.3);">All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       JS
+  ============================================================ -->
+  <style>
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.6; transform: scale(0.85); }
+    }
+  </style>
+  <script>
+    // Nav scroll shadow
+    const nav = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 12);
+    }, { passive: true });
+
+    // Mobile menu
+    const btn  = document.getElementById('mob-btn');
+    const menu = document.getElementById('mob-menu');
+    btn.addEventListener('click', () => {
+      const open = menu.classList.toggle('hidden');
+      btn.setAttribute('aria-expanded', String(!menu.classList.contains('hidden')));
+    });
+    menu.querySelectorAll('a').forEach(l => l.addEventListener('click', () => {
+      menu.classList.add('hidden');
+      btn.setAttribute('aria-expanded', 'false');
+    }));
+
+    // Logo bar spring on hover
+    const logoBar = document.querySelector('[data-logo-bar]');
+    const logoLink = logoBar?.closest('a');
+    if (logoLink && logoBar) {
+      logoLink.addEventListener('mouseenter', () => { logoBar.style.transform = 'scaleY(1.3)'; });
+      logoLink.addEventListener('mouseleave', () => { logoBar.style.transform = 'scaleY(1)'; });
+    }
+  </script>
+</body>
+</html>
