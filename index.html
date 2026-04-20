@@ -274,6 +274,54 @@
     }
     @media (max-width: 480px) { .svc-slide-content { bottom: 1.75rem; left: 1.5rem; right: 1.5rem; } }
 
+    /* ── BRAND QUOTE ─────────────────────────────────────────────── */
+    .svc-brand-quote {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      padding: 0 2rem 5rem;
+    }
+    .svc-quote-rule {
+      width: 48px;
+      height: 1.5px;
+      background: #1A5FD4;
+      margin-bottom: 1.5rem;
+      flex-shrink: 0;
+    }
+    .svc-quote-main {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: clamp(3rem, 6.5vw, 5.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.045em;
+      color: #ffffff;
+      text-align: center;
+      text-shadow: 0 2px 40px rgba(0,0,0,0.5);
+    }
+    .svc-quote-main em {
+      font-style: normal;
+      color: rgba(255,255,255,0.45);
+    }
+    .svc-quote-sub {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.75rem, 1.4vw, 0.9375rem);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-top: 1.25rem;
+      text-align: center;
+    }
+    @media (max-width: 640px) {
+      .svc-brand-quote { padding-bottom: 8rem; }
+      .svc-quote-main { font-size: clamp(2.5rem, 11vw, 3.5rem); }
+    }
+
     .svc-num {
       font-family: 'Outfit', sans-serif;
       font-weight: 800;
@@ -1213,6 +1261,11 @@
                src="WhatsApp%20Image%202026-04-07%20at%2016.35.53.jpeg"
                alt="MD Recovery truck with forklift, Cavan" />
           <div class="svc-slide-overlay"></div>
+          <div class="svc-brand-quote" aria-hidden="true">
+            <div class="svc-quote-rule"></div>
+            <p class="svc-quote-main">You Call.<br/><em>We Haul.</em></p>
+            <p class="svc-quote-sub">Cavan &amp; Surrounding Counties</p>
+          </div>
           <div class="svc-slide-content">
             <span class="svc-num">01 / 04</span>
             <div class="svc-icon-wrap">
@@ -1236,6 +1289,11 @@
                src="https://picsum.photos/seed/vehicle-secure-storage/1400/800"
                alt="Secure vehicle storage facility" />
           <div class="svc-slide-overlay"></div>
+          <div class="svc-brand-quote" aria-hidden="true">
+            <div class="svc-quote-rule"></div>
+            <p class="svc-quote-main">You Call.<br/><em>We Haul.</em></p>
+            <p class="svc-quote-sub">Cavan &amp; Surrounding Counties</p>
+          </div>
           <div class="svc-slide-content">
             <span class="svc-num">02 / 04</span>
             <div class="svc-icon-wrap">
@@ -1259,6 +1317,11 @@
                src="https://picsum.photos/seed/car-workshop-mechanic/1400/800"
                alt="Professional car mechanic workshop" />
           <div class="svc-slide-overlay"></div>
+          <div class="svc-brand-quote" aria-hidden="true">
+            <div class="svc-quote-rule"></div>
+            <p class="svc-quote-main">You Call.<br/><em>We Haul.</em></p>
+            <p class="svc-quote-sub">Cavan &amp; Surrounding Counties</p>
+          </div>
           <div class="svc-slide-content">
             <span class="svc-num">03 / 04</span>
             <div class="svc-icon-wrap">
@@ -1281,6 +1344,11 @@
                src="https://picsum.photos/seed/car-obd-diagnostics/1400/800"
                alt="Vehicle OBD diagnostic scan" />
           <div class="svc-slide-overlay"></div>
+          <div class="svc-brand-quote" aria-hidden="true">
+            <div class="svc-quote-rule"></div>
+            <p class="svc-quote-main">You Call.<br/><em>We Haul.</em></p>
+            <p class="svc-quote-sub">Cavan &amp; Surrounding Counties</p>
+          </div>
           <div class="svc-slide-content">
             <span class="svc-num">04 / 04</span>
             <div class="svc-icon-wrap">
