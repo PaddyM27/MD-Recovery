@@ -8,7 +8,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <!-- Inter only — full weight range -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <script>
     tailwind.config = {
       theme: {
@@ -20,7 +21,7 @@
             surface: '#EFF4FB',
           },
           fontFamily: {
-            display: ['Outfit', 'sans-serif'],
+            display: ['Inter', 'sans-serif'],
             body:    ['Inter', 'sans-serif'],
           },
         }
@@ -38,24 +39,29 @@
       overflow-x: hidden;
     }
 
-    /* ─── TYPOGRAPHY ─────────────────────────────────────────── */
+    /* ─── TYPOGRAPHY — Inter throughout ────────────────────────── */
     .heading-xl {
-      font-family: 'Outfit', sans-serif;
+      font-family: 'Inter', sans-serif;
       font-weight: 900;
       line-height: 0.92;
       letter-spacing: -0.05em;
     }
     .heading-lg {
-      font-family: 'Outfit', sans-serif;
+      font-family: 'Inter', sans-serif;
       font-weight: 800;
       line-height: 1.05;
       letter-spacing: -0.04em;
     }
     .heading-md {
-      font-family: 'Outfit', sans-serif;
+      font-family: 'Inter', sans-serif;
       font-weight: 700;
       line-height: 1.15;
       letter-spacing: -0.03em;
+    }
+    .body-light {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      line-height: 1.75;
     }
     .label-caps {
       font-family: 'Inter', sans-serif;
@@ -65,7 +71,7 @@
       text-transform: uppercase;
     }
 
-    /* ─── GRAIN (pointer-events-none fixed pseudo — no GPU repaint) */
+    /* ─── GRAIN ─────────────────────────────────────────────────── */
     body::before {
       content: '';
       position: fixed;
@@ -76,38 +82,56 @@
       background-size: 180px 180px;
     }
 
-    /* ─── NAV ────────────────────────────────────────────────── */
-    .nav-bar {
-      background: rgba(9,21,38,0.88);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+    /* ─── FLOATING PILL NAV ─────────────────────────────────────── */
+    .nav-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.4rem 0.4rem 0.4rem 1.25rem;
+      border-radius: 999px;
+      background: rgba(9, 21, 38, 0.72);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow:
+        0 4px 24px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.07);
+      transition: box-shadow 0.3s ease;
     }
-    .nav-bar.scrolled { box-shadow: 0 4px 32px rgba(0,0,0,0.35); }
+    .nav-pill.scrolled {
+      background: rgba(9, 21, 38, 0.88);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+    }
     .nav-link {
       position: relative;
       font-family: 'Inter', sans-serif;
       font-size: 0.8125rem;
       font-weight: 500;
       color: #8299b5;
-      transition: color 0.15s ease;
+      padding: 0.375rem 0.75rem;
+      border-radius: 999px;
+      transition: color 0.15s ease, background 0.15s ease;
     }
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -3px; left: 0; right: 0;
-      height: 1px;
-      background: #1A5FD4;
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.2s cubic-bezier(0.16,1,0.3,1);
-    }
-    .nav-link:hover { color: #fff; }
-    .nav-link:hover::after { transform: scaleX(1); }
+    .nav-link:hover { color: #fff; background: rgba(255,255,255,0.06); }
+    .nav-link:focus-visible { outline: 2px solid #1A5FD4; outline-offset: 2px; }
 
-    /* ─── BUTTONS ────────────────────────────────────────────── */
+    /* Mobile dropdown card (appears below pill) */
+    .nav-dropdown {
+      background: rgba(9, 21, 38, 0.95);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 1rem;
+      margin-top: 0.5rem;
+      width: calc(100vw - 2rem);
+      max-width: 360px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    /* ─── BUTTONS ───────────────────────────────────────────────── */
     .btn-primary {
-      font-family: 'Outfit', sans-serif;
+      font-family: 'Inter', sans-serif;
       font-weight: 700;
       background: #1A5FD4;
       color: #fff;
@@ -119,29 +143,22 @@
       transform: translateY(-2px);
       box-shadow: 0 8px 28px rgba(26,95,212,0.48), inset 0 1px 0 rgba(255,255,255,0.14);
     }
-    .btn-primary:active {
-      transform: translateY(1px) scale(0.99);
-      box-shadow: 0 2px 10px rgba(26,95,212,0.3);
-    }
+    .btn-primary:active  { transform: translateY(1px) scale(0.99); box-shadow: 0 2px 10px rgba(26,95,212,0.3); }
     .btn-primary:focus-visible { outline: 2px solid #3578e8; outline-offset: 3px; }
 
     .btn-outline {
-      font-family: 'Outfit', sans-serif;
+      font-family: 'Inter', sans-serif;
       font-weight: 600;
       color: #fff;
       border: 1.5px solid rgba(255,255,255,0.28);
       background: rgba(255,255,255,0.04);
       transition: transform 0.18s cubic-bezier(0.34,1.56,0.64,1), border-color 0.15s ease, background 0.15s ease;
     }
-    .btn-outline:hover {
-      border-color: rgba(255,255,255,0.55);
-      background: rgba(255,255,255,0.08);
-      transform: translateY(-2px);
-    }
+    .btn-outline:hover   { border-color: rgba(255,255,255,0.55); background: rgba(255,255,255,0.08); transform: translateY(-2px); }
     .btn-outline:active  { transform: translateY(1px); }
     .btn-outline:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 
-    /* ─── PHONE PULSE ────────────────────────────────────────── */
+    /* ─── PHONE PULSE ───────────────────────────────────────────── */
     @keyframes pulse-ring {
       0%   { box-shadow: 0 4px 18px rgba(26,95,212,0.38), inset 0 1px 0 rgba(255,255,255,0.12), 0 0 0 0 rgba(26,95,212,0.5); }
       60%  { box-shadow: 0 4px 18px rgba(26,95,212,0.38), inset 0 1px 0 rgba(255,255,255,0.12), 0 0 0 14px rgba(26,95,212,0); }
@@ -149,19 +166,16 @@
     }
     .phone-pulse { animation: pulse-ring 2.8s ease-out infinite; }
 
-    /* ─── ENTRANCE ANIMATIONS ────────────────────────────────── */
+    /* ─── ENTRANCE ANIMATIONS ───────────────────────────────────── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
     }
     .anim { animation: fadeUp 0.65s cubic-bezier(0.22,1,0.36,1) both; }
-    .d1 { animation-delay: 0.08s; }
-    .d2 { animation-delay: 0.18s; }
-    .d3 { animation-delay: 0.28s; }
-    .d4 { animation-delay: 0.38s; }
-    .d5 { animation-delay: 0.48s; }
+    .d1 { animation-delay: 0.08s; } .d2 { animation-delay: 0.18s; }
+    .d3 { animation-delay: 0.28s; } .d4 { animation-delay: 0.38s; }
 
-    /* ─── HERO ───────────────────────────────────────────────── */
+    /* ─── HERO ──────────────────────────────────────────────────── */
     .hero-wrap {
       min-height: 100dvh;
       display: grid;
@@ -169,182 +183,255 @@
       background: #060d1b;
     }
     @media (max-width: 768px) {
-      .hero-wrap {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto;
-        position: relative;
-      }
-      .hero-photo-col {
-        display: none;
-      }
+      .hero-wrap { grid-template-columns: 1fr; position: relative; }
+      .hero-photo-col { display: none; }
       .hero-wrap::before {
         content: '';
-        position: absolute;
-        inset: 0;
+        position: absolute; inset: 0;
         background-image: url('WhatsApp%20Image%202026-04-07%20at%2016.35.53%20(1).jpeg');
-        background-size: cover;
-        background-position: center 40%;
-        opacity: 0.15;
-        z-index: 0;
+        background-size: cover; background-position: center 40%;
+        opacity: 0.22; z-index: 0;
       }
     }
-
     .hero-content-col {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column; justify-content: center;
       padding: 8rem 4rem 4rem 5vw;
     }
-    @media (max-width: 1280px) {
-      .hero-content-col { padding: 7rem 3rem 4rem 3rem; }
-    }
-    @media (max-width: 768px) {
-      .hero-content-col { padding: 6rem 1.5rem 3rem 1.5rem; }
-    }
+    @media (max-width: 1280px) { .hero-content-col { padding: 7rem 3rem 4rem 3rem; } }
+    @media (max-width: 768px)  { .hero-content-col { padding: 5.5rem 1.25rem 2.5rem; } }
+    @media (max-width: 390px)  { .hero-content-col { padding: 5rem 1rem 2rem; } }
 
-    .hero-photo-col {
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-photo-col img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 40%;
-      display: block;
-    }
-    /* Fade photo into the dark left side */
+    .hero-photo-col { position: relative; overflow: hidden; }
+    .hero-photo-col img { width:100%; height:100%; object-fit:cover; object-position:center 40%; display:block; }
     .hero-photo-col::after {
       content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to right,
-        rgba(6,13,27,1) 0%,
-        rgba(6,13,27,0.45) 25%,
-        rgba(6,13,27,0.1) 60%,
-        rgba(6,13,27,0) 100%
-      ),
-      linear-gradient(
-        to bottom,
-        rgba(6,13,27,0.5) 0%,
-        transparent 20%,
-        transparent 75%,
-        rgba(6,13,27,0.6) 100%
-      );
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, rgba(6,13,27,1) 0%, rgba(6,13,27,0.45) 25%, rgba(6,13,27,0.1) 60%, rgba(6,13,27,0) 100%),
+                  linear-gradient(to bottom, rgba(6,13,27,0.5) 0%, transparent 20%, transparent 75%, rgba(6,13,27,0.6) 100%);
     }
-    /* Blue glow bleed from left */
     .hero-photo-col::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      z-index: 1;
+      content: ''; position: absolute; inset: 0; z-index: 1;
       background: radial-gradient(ellipse 60% 80% at 0% 60%, rgba(26,95,212,0.18) 0%, transparent 70%);
     }
 
-    /* ─── BADGE (liquid glass) ───────────────────────────────── */
+    /* ─── BADGE ─────────────────────────────────────────────────── */
     .badge-glass {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.375rem 0.875rem;
-      border-radius: 99px;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.375rem 0.875rem; border-radius: 99px;
       background: rgba(26,95,212,0.14);
       border: 1px solid rgba(26,95,212,0.4);
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    }
+    @keyframes pulse-dot {
+      0%,100% { opacity:1; transform:scale(1); }
+      50%     { opacity:0.6; transform:scale(0.82); }
     }
 
-    /* ─── SERVICE BENTO ──────────────────────────────────────── */
-    .bento-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      grid-template-rows: auto auto;
-      gap: 1.25rem;
-    }
-    @media (max-width: 900px) {
-      .bento-grid {
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: auto;
-      }
-      .bento-feature { grid-column: 1 / -1; }
-    }
-    @media (max-width: 560px) {
-      .bento-grid { grid-template-columns: 1fr; }
-      .bento-feature { grid-column: 1; }
-    }
-
-    .bento-card {
-      background: #fff;
-      border-radius: 20px;
-      border-top: 3px solid #1A5FD4;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1.125rem;
-      box-shadow:
-        0 2px 4px -1px rgba(9,21,38,0.06),
-        0 6px 12px -4px rgba(9,21,38,0.05),
-        0 0 0 1px rgba(26,95,212,0.05);
-      transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.22s ease;
-    }
-    .bento-card:hover {
-      transform: translateY(-4px);
-      box-shadow:
-        0 12px 28px -8px rgba(9,21,38,0.14),
-        0 4px 8px -2px rgba(26,95,212,0.1),
-        0 0 0 1px rgba(26,95,212,0.1);
-    }
-    .bento-feature {
-      grid-column: 1 / 2;
-      grid-row: 1 / 3;
-      background: #091526;
-      border-top: 3px solid #1A5FD4;
-      border-radius: 20px;
-      padding: 2.5rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      gap: 1.25rem;
-      min-height: 340px;
+    /* ═══════════════════════════════════════════════════════════
+       SERVICES SLIDER
+    ═══════════════════════════════════════════════════════════ */
+    .svc-slider-wrap {
       position: relative;
       overflow: hidden;
-      box-shadow:
-        0 8px 24px -6px rgba(9,21,38,0.3),
-        0 0 0 1px rgba(26,95,212,0.1);
-      transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.22s ease;
+      border-radius: 24px;
+      height: 540px;
     }
-    .bento-feature::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 20% 80%, rgba(26,95,212,0.2) 0%, transparent 70%);
+    @media (max-width: 768px) { .svc-slider-wrap { height: 480px; border-radius: 16px; } }
+    @media (max-width: 480px) { .svc-slider-wrap { height: 420px; } }
+
+    .svc-slide {
+      position: absolute; inset: 0;
+      opacity: 0;
+      transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1);
       pointer-events: none;
     }
-    .bento-feature:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 40px -10px rgba(9,21,38,0.4), 0 0 0 1px rgba(26,95,212,0.18);
+    .svc-slide.active {
+      opacity: 1;
+      pointer-events: auto;
     }
+    .svc-slide-bg {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      transform: scale(1.04);
+      transition: transform 6s ease-out;
+    }
+    .svc-slide.active .svc-slide-bg { transform: scale(1); }
+    .svc-slide-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(6,13,27,0.88) 0%,
+        rgba(6,13,27,0.65) 50%,
+        rgba(6,13,27,0.45) 100%
+      );
+    }
+    .svc-slide-content {
+      position: absolute; bottom: 2.5rem; left: 2.5rem; right: 2.5rem;
+      z-index: 2;
+    }
+    @media (max-width: 480px) { .svc-slide-content { bottom: 1.75rem; left: 1.5rem; right: 1.5rem; } }
 
-    .icon-wrap {
-      width: 2.75rem;
-      height: 2.75rem;
+    .svc-num {
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      color: #1A5FD4;
+      text-transform: uppercase;
+      margin-bottom: 0.875rem;
+      display: block;
+    }
+    .svc-icon-wrap {
+      width: 2.75rem; height: 2.75rem;
       border-radius: 12px;
-      background: rgba(26,95,212,0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
+      background: rgba(26,95,212,0.25);
+      border: 1px solid rgba(26,95,212,0.4);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .svc-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      letter-spacing: -0.04em;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 0.75rem;
+    }
+    .svc-desc {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 0.9375rem;
+      line-height: 1.7;
+      color: #aabdce;
+      max-width: 36rem;
+      margin-bottom: 1.25rem;
+    }
+    .svc-cta {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600; font-size: 0.875rem;
+      color: #60a5fa;
+      transition: gap 0.15s ease, color 0.15s ease;
+    }
+    .svc-cta:hover { gap: 0.75rem; color: #93c5fd; }
+
+    /* Slider controls */
+    .svc-controls {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 1.5rem;
+    }
+    .svc-dots { display: flex; gap: 0.5rem; }
+    .svc-dot {
+      width: 28px; height: 3px; border-radius: 99px;
+      background: rgba(255,255,255,0.25);
+      border: none; cursor: pointer; padding: 0;
+      transition: background 0.25s ease, width 0.25s ease;
+    }
+    .svc-dot.active { background: #1A5FD4; width: 48px; }
+    .svc-arrows { display: flex; gap: 0.5rem; }
+    .svc-arrow {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.14);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: #fff;
+      transition: background 0.15s ease, transform 0.18s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .svc-arrow:hover { background: rgba(26,95,212,0.35); transform: scale(1.08); }
+    .svc-arrow:active { transform: scale(0.96); }
+    .svc-arrow:focus-visible { outline: 2px solid #1A5FD4; outline-offset: 2px; }
+
+    /* Progress bar at top of slider */
+    .svc-progress {
+      position: absolute; top: 0; left: 0; right: 0; height: 3px; z-index: 3;
+      background: rgba(255,255,255,0.08);
+    }
+    .svc-progress-fill {
+      height: 100%;
+      background: #1A5FD4;
+      transition: width 0s linear;
     }
 
-    /* ─── TRUST STRIP ────────────────────────────────────────── */
-    .trust-item {
+    /* ═══════════════════════════════════════════════════════════
+       TRUST AUTO-CAROUSEL
+    ═══════════════════════════════════════════════════════════ */
+    .trust-carousel-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+    .trust-track {
+      display: flex;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .trust-slide {
+      flex: 0 0 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       text-align: center;
-      padding: 1.75rem 1.5rem;
-      border-radius: 16px;
+      padding: 3rem 2rem 2rem;
+    }
+    .trust-icon-wrap {
+      width: 5rem; height: 5rem;
+      border-radius: 20px;
+      background: rgba(26,95,212,0.14);
+      border: 1px solid rgba(26,95,212,0.25);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.75rem;
+    }
+    .trust-slide-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.5rem, 4vw, 2.25rem);
+      letter-spacing: -0.04em;
+      color: #fff;
+      margin-bottom: 0.875rem;
+      line-height: 1.1;
+    }
+    .trust-slide-body {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 1.0625rem;
+      line-height: 1.75;
+      color: #8299b5;
+      max-width: 28rem;
+    }
+
+    /* Trust progress bar */
+    .trust-progress-bar {
+      height: 2px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 99px;
+      overflow: hidden;
+      margin: 2rem auto 1.5rem;
+      width: 100%;
+      max-width: 260px;
+    }
+    .trust-progress-fill {
+      height: 100%;
+      background: #1A5FD4;
+      border-radius: 99px;
+      width: 0%;
+      transition: width 0.05s linear;
+    }
+
+    /* Trust dots */
+    .trust-dots { display: flex; gap: 0.5rem; justify-content: center; }
+    .trust-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      border: none; cursor: pointer; padding: 0;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .trust-dot.active { background: #1A5FD4; transform: scale(1.4); }
+
+    /* ─── WHY US SECTION ────────────────────────────────────────── */
+    .trust-item {
+      text-align: center; padding: 1.75rem 1.5rem; border-radius: 16px;
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.07);
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
@@ -352,147 +439,419 @@
     }
     .trust-item:hover { transform: translateY(-2px); }
 
-    /* ─── COUNTY PILLS ───────────────────────────────────────── */
+    /* ─── COUNTY PILLS ──────────────────────────────────────────── */
     .county-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      border-radius: 99px;
-      background: #fff;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.8125rem;
-      font-weight: 500;
-      color: #091526;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.5rem 1rem; border-radius: 99px; background: #fff;
+      font-family: 'Inter', sans-serif; font-size: 0.8125rem; font-weight: 500; color: #091526;
       box-shadow: 0 2px 4px -1px rgba(9,21,38,0.07), 0 0 0 1px rgba(26,95,212,0.07);
       transition: transform 0.18s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.18s ease;
     }
-    .county-pill:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(26,95,212,0.22), 0 0 0 1px rgba(26,95,212,0.12);
-    }
+    .county-pill:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(26,95,212,0.22), 0 0 0 1px rgba(26,95,212,0.12); }
 
-    /* ─── MAP VISUAL ─────────────────────────────────────────── */
+    /* ─── MAP VISUAL ────────────────────────────────────────────── */
     .map-visual {
-      background: #091526;
-      border-radius: 20px;
-      aspect-ratio: 4/3;
-      position: relative;
-      overflow: hidden;
+      background: #091526; border-radius: 20px; aspect-ratio: 4/3;
+      position: relative; overflow: hidden;
       box-shadow: 0 4px 24px -6px rgba(9,21,38,0.3), 0 0 0 1px rgba(26,95,212,0.1);
     }
     .map-visual::before {
-      content: '';
-      position: absolute;
-      inset: 0;
+      content: ''; position: absolute; inset: 0;
       background: radial-gradient(circle at 50% 50%, rgba(26,95,212,0.22) 0%, transparent 65%);
     }
 
-    /* ─── DIAGNOSTIC WIDE CARD ──────────────────────────────── */
-    .bento-diag { grid-column: 2 / 4; }
-
-    /* ─── CARD LINK ──────────────────────────────────────────── */
+    /* ─── CARD LINK ─────────────────────────────────────────────── */
     .card-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.375rem;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.8125rem;
-      font-weight: 600;
-      color: #1A5FD4;
+      display: inline-flex; align-items: center; gap: 0.375rem;
+      font-family: 'Inter', sans-serif; font-size: 0.8125rem; font-weight: 600; color: #1A5FD4;
       transition: gap 0.15s ease, color 0.15s ease;
     }
     .card-link:hover { gap: 0.625rem; color: #2c6fe0; }
-    .card-link:focus-visible { outline: 2px solid #1A5FD4; border-radius: 4px; }
 
     /* ═══════════════════════════════════════════════════════════
-       MOBILE OVERRIDES  ≤ 768px
+       IMAGE ACCORDION SECTION
     ═══════════════════════════════════════════════════════════ */
-    @media (max-width: 768px) {
-
-      /* ── Hero ── */
-      .hero-wrap::before { opacity: 0.22; } /* slightly more visible truck on mobile */
-
-      .hero-content-col { padding: 5.5rem 1.25rem 2.5rem; }
-
-      /* badge: smaller text */
-      .badge-glass { padding: 0.3rem 0.75rem; }
-      .badge-glass .label-caps { font-size: 0.62rem; letter-spacing: 0.1em; }
-
-      /* CTAs stack full-width */
-      .hero-cta-group {
-        flex-direction: column;
-        width: 100%;
+    .acc-section-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    @media (min-width: 1280px) {
+      .acc-section-layout {
+        grid-template-columns: 2fr 3fr;
+        gap: 5rem;
       }
-      .hero-cta-group a {
-        width: 100% !important;
-        justify-content: center;
-      }
-      /* Phone button size reduction on mobile */
-      .hero-phone-btn {
-        font-size: 1.25rem !important;
-        padding: 0.875rem 1.5rem !important;
-      }
-      /* Outline button */
-      .hero-outline-btn {
-        font-size: 0.9375rem !important;
-        padding: 0.875rem 1.5rem !important;
-      }
-
-      /* stat strip: 2-column grid instead of free-wrap */
-      .hero-stats {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr;
-        gap: 0.625rem 1.5rem;
-      }
-
-      /* ── Services ── */
-      /* single column for ALL cards */
-      .bento-grid {
-        grid-template-columns: 1fr !important;
-        gap: 1rem;
-      }
-      .bento-feature {
-        grid-column: 1 !important;
-        grid-row: auto !important;
-        min-height: 260px;
-        padding: 1.75rem;
-      }
-      .bento-card { padding: 1.5rem; }
-      /* diagnostic card: reset the inline grid-column override */
-      .bento-diag { grid-column: 1 !important; }
-      .bento-diag .bento-diag-inner {
-        flex-direction: column !important;
-        gap: 1rem !important;
-      }
-
-      /* ── Why Us ── */
-      .why-photo { max-height: 220px !important; }
-
-      /* ── Coverage ── */
-      .coverage-section { padding-top: 3.5rem; padding-bottom: 3.5rem; }
-      .map-visual { aspect-ratio: 16/9; }
-
-      /* ── Contact ── */
-      .contact-phone-btn {
-        width: 100% !important;
-        font-size: 1.5rem !important;
-        padding: 1.125rem 1.5rem !important;
-        justify-content: center;
-      }
-      .contact-email-btn {
-        width: 100% !important;
-        justify-content: center;
-      }
-
-      /* ── General section spacing ── */
-      .section-mobile-pad { padding-top: 4rem !important; padding-bottom: 4rem !important; }
     }
 
-    /* ── Small phones ≤ 390px ── */
+    /* The scrollable accordion track */
+    .img-acc-wrap {
+      display: flex;
+      gap: 0.625rem;
+      height: 500px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .img-acc-wrap::-webkit-scrollbar { display: none; }
+
+    /* Each accordion panel */
+    .acc-item {
+      position: relative;
+      flex-shrink: 0;
+      width: 58px;
+      border-radius: 18px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.07);
+      transition: width 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .acc-item.is-active { width: 360px; }
+
+    /* Image + subtle ken burns on active */
+    .acc-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transform: scale(1.05);
+      transition: transform 6s ease-out;
+    }
+    .acc-item.is-active .acc-bg { transform: scale(1); }
+
+    /* Overlay */
+    .acc-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(6,13,27,0.92) 0%, rgba(6,13,27,0.3) 55%, transparent 100%);
+    }
+
+    /* Vertical label — visible only when collapsed */
+    .acc-label-v {
+      position: absolute;
+      bottom: 5.5rem;
+      left: 50%;
+      transform: translateX(-50%) rotate(90deg);
+      transform-origin: center center;
+      color: rgba(255,255,255,0.75);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      white-space: nowrap;
+      letter-spacing: 0.01em;
+      pointer-events: none;
+      opacity: 1;
+      transition: opacity 0.2s ease;
+    }
+    .acc-item.is-active .acc-label-v { opacity: 0; }
+
+    /* Active content — fades in from bottom */
+    .acc-content {
+      position: absolute;
+      bottom: 1.875rem;
+      left: 1.5rem;
+      right: 1.5rem;
+      z-index: 2;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.4s ease 0.15s, transform 0.4s ease 0.15s;
+      pointer-events: none;
+    }
+    .acc-item.is-active .acc-content {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .acc-icon-wrap {
+      width: 2.375rem; height: 2.375rem;
+      border-radius: 10px;
+      background: rgba(26,95,212,0.25);
+      border: 1px solid rgba(26,95,212,0.4);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 0.75rem;
+    }
+    .acc-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1rem, 2vw, 1.375rem);
+      letter-spacing: -0.035em;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+    .acc-desc {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 0.8125rem;
+      line-height: 1.65;
+      color: #aabdce;
+      margin-bottom: 0.875rem;
+    }
+
+    /* Mobile accordion sizing — hero context fills height, items scale down */
+    @media (max-width: 640px) {
+      .acc-item               { width: 42px; border-radius: 12px; }
+      .acc-item.is-active     { width: 200px; }
+      .acc-desc               { display: none; }
+      .acc-label-v            { font-size: 0.7rem; bottom: 4.5rem; }
+      .acc-hero-title         { font-size: 1rem !important; }
+    }
+    @media (max-width: 390px) {
+      .acc-item               { width: 36px; border-radius: 10px; gap: 0.375rem; }
+      .acc-item.is-active     { width: 170px; }
+    }
+
+    /* ─── NEW HERO LAYOUT ──────────────────────────────────────── */
+    .new-hero-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 8rem 5vw 4rem 5vw;
+      display: grid;
+      grid-template-columns: 2fr 3fr; /* give accordion more room to prevent text shift */
+      gap: 4rem;
+      align-items: center;
+      min-height: 100dvh;
+      box-sizing: border-box;
+    }
+    /* Desktop: pin acc-col so accordion width changes don't reflow the text column */
+    @media (min-width: 1025px) {
+      .hero-acc-col { min-width: 0; overflow: hidden; }
+      .hero-acc-track { overflow-x: hidden; }
+    }
+    @media (max-width: 1280px) { .new-hero-inner { padding: 7rem 3rem 4rem; } }
+
+    /* ── MOBILE HERO: full-viewport flex stack ─────────────────── */
+    @media (max-width: 1024px) {
+      /* Section fills viewport and becomes a flex column */
+      .hero-section {
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+      }
+      /* Inner grid → flex column, fills remaining height */
+      .new-hero-inner {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        grid-template-columns: unset;
+        padding: 5.5rem 1.25rem 0;
+        gap: 0;
+        min-height: 0;
+        align-items: stretch;
+      }
+      /* Text column: only takes what it needs, compact spacing */
+      .hero-text-col {
+        flex-shrink: 0;
+        padding-bottom: 1.25rem;
+      }
+      .hero-text-col .badge-glass     { margin-bottom: 1rem !important; }
+      .hero-text-col h1               { margin-bottom: 0.625rem !important; font-size: clamp(2.75rem, 9vw, 3.75rem) !important; }
+      .hero-text-col .body-light      { margin-bottom: 1.25rem !important; font-size: 0.9375rem !important; }
+      .hero-text-col .hero-cta-group  { margin-bottom: 0 !important; gap: 0.625rem !important; }
+      .hero-text-col .hero-stats      { display: none !important; } /* save space on mobile */
+      /* Accordion column: fills all remaining viewport space using flex */
+      .hero-acc-col {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 1.25rem;
+        padding-top: 1rem;
+      }
+      /* Track fills its flex parent — no fixed height needed; centered under CTAs */
+      .hero-acc-track {
+        flex: 1 !important;
+        height: unset !important;
+        min-height: 200px;
+        justify-content: center;
+      }
+    }
+    @media (max-width: 390px) {
+      .new-hero-inner { padding: 5rem 1rem 0; }
+      .hero-text-col .body-light { display: none !important; } /* very small screens: drop subtitle */
+    }
+
+    /* Accordion track inside hero */
+    .hero-acc-track {
+      display: flex;
+      gap: 0.625rem;
+      height: clamp(380px, calc(100svh - 13rem), 560px);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .hero-acc-track::-webkit-scrollbar { display: none; }
+    /* On mobile: track fills its parent (.hero-acc-col) */
+    @media (max-width: 1024px) { .hero-acc-track { height: 100%; } }
+    @media (max-width: 640px)  { .hero-acc-track { gap: 0.375rem; } }
+
+    /* Title shown at bottom when panel is active (label only — no desc/CTA) */
+    .acc-hero-label {
+      position: absolute;
+      bottom: 1.375rem;
+      left: 1.25rem;
+      right: 1.25rem;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.4s ease 0.15s, transform 0.4s ease 0.15s;
+      pointer-events: none;
+    }
+    .acc-item.is-active .acc-hero-label { opacity: 1; transform: translateY(0); }
+    .acc-hero-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1rem, 2.5vw, 1.375rem);
+      letter-spacing: -0.04em;
+      color: #fff;
+      line-height: 1.15;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       FEATURES CAROUSEL ("What We Do")
+    ═══════════════════════════════════════════════════════════ */
+    .ftr-header {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    @media (min-width: 640px) {
+      .ftr-header { flex-direction: row; align-items: flex-end; justify-content: space-between; }
+    }
+    .ftr-cta-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: #1A5FD4;
+      margin-top: 0.875rem;
+      transition: gap 0.15s ease, color 0.15s ease;
+    }
+    .ftr-cta-link:hover { gap: 0.5rem; color: #2c6fe0; }
+    .ftr-arrows { display: flex; gap: 0.5rem; align-self: flex-end; }
+    .ftr-arr-btn {
+      width: 2.5rem; height: 2.5rem; border-radius: 50%;
+      background: #fff;
+      border: 1.5px solid rgba(9,21,38,0.12);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: #091526;
+      box-shadow: 0 2px 6px rgba(9,21,38,0.07), 0 0 0 1px rgba(26,95,212,0.04);
+      transition: background 0.15s, border-color 0.15s, transform 0.18s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.15s;
+    }
+    .ftr-arr-btn:hover {
+      background: #1A5FD4; border-color: #1A5FD4; color: #fff;
+      transform: scale(1.07);
+      box-shadow: 0 4px 14px rgba(26,95,212,0.35);
+    }
+    .ftr-arr-btn:active { transform: scale(0.96); }
+    .ftr-arr-btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none !important; box-shadow: none; pointer-events: none; }
+    .ftr-arr-btn:focus-visible { outline: 2px solid #1A5FD4; outline-offset: 2px; }
+
+    /* Carousel outer — clips the scrollable track */
+    .ftr-car-outer { overflow: hidden; }
+    .ftr-car-track {
+      display: flex;
+      gap: 1.25rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      cursor: grab;
+      padding-bottom: 0.5rem; /* breathing room for shadows */
+      /* Left-align first card with page content */
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+    @media (min-width: 640px)  { .ftr-car-track { padding-left: 2rem; padding-right: 2rem; } }
+    @media (min-width: 1024px) { .ftr-car-track { padding-left: max(2rem, calc(50vw - 640px + 2rem)); padding-right: max(2rem, calc(50vw - 640px + 2rem)); } }
+    .ftr-car-track:active { cursor: grabbing; }
+    .ftr-car-track::-webkit-scrollbar { display: none; }
+
+    .ftr-car-item {
+      flex: 0 0 auto;
+      width: min(380px, 78vw);
+      scroll-snap-align: start;
+    }
+
+    .ftr-card {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .ftr-img-wrap {
+      aspect-ratio: 3 / 2;
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 1.25rem;
+      background: #0e2040;
+      box-shadow: 0 4px 18px -4px rgba(9,21,38,0.18), 0 0 0 1px rgba(26,95,212,0.06);
+    }
+    .ftr-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transform: scale(1.03);
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .ftr-card:hover .ftr-img-wrap img { transform: scale(1.09); }
+
+    .ftr-service-tag {
+      display: inline-flex; align-items: center; gap: 0.375rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #1A5FD4;
+      margin-bottom: 0.5rem;
+    }
+    .ftr-card-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.0625rem, 2vw, 1.25rem);
+      letter-spacing: -0.035em;
+      color: #091526;
+      line-height: 1.2;
+      margin-bottom: 0.625rem;
+    }
+    .ftr-card-desc {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: #5a7496;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex: 1;
+      margin-bottom: 1rem;
+    }
+    .ftr-read-more {
+      display: inline-flex; align-items: center; gap: 0.375rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8125rem; font-weight: 600;
+      color: #091526;
+      transition: gap 0.15s ease, color 0.15s ease;
+    }
+    .ftr-card:hover .ftr-read-more { gap: 0.625rem; color: #1A5FD4; }
+
+    /* ─── MOBILE OVERRIDES ──────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .hero-cta-group { flex-direction: column; width: 100%; }
+      .hero-cta-group a { width: 100% !important; justify-content: center; }
+      .hero-phone-btn { font-size: 1.25rem !important; padding: 0.875rem 1.5rem !important; }
+      .hero-outline-btn { font-size: 0.9375rem !important; padding: 0.875rem 1.5rem !important; }
+      .hero-stats { display: grid !important; grid-template-columns: 1fr 1fr; gap: 0.625rem 1.5rem; }
+      .why-photo { max-height: 220px !important; }
+      .contact-phone-btn { width: 100% !important; font-size: 1.5rem !important; padding: 1.125rem 1.5rem !important; justify-content: center; }
+      .contact-email-btn { width: 100% !important; justify-content: center; }
+    }
     @media (max-width: 390px) {
       .hero-content-col { padding: 5rem 1rem 2rem; }
-      .bento-feature { min-height: 220px; padding: 1.5rem; }
       .contact-phone-btn { font-size: 1.25rem !important; }
     }
   </style>
@@ -500,309 +859,551 @@
 <body>
 
   <!-- ============================================================
-       NAVIGATION
+       FLOATING PILL NAVIGATION
   ============================================================ -->
-  <nav id="navbar" class="nav-bar fixed top-0 left-0 right-0 z-50 transition-shadow duration-300">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="flex items-center justify-between" style="height: 4rem;">
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 flex flex-col items-center" style="padding-top: 1rem; pointer-events: none;">
 
-        <!-- Logo -->
-        <a href="#" class="flex items-center gap-2.5 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt rounded-sm" aria-label="MD Recovery home">
-          <div class="rounded-full" style="width:3px; height:2rem; background:#1A5FD4; transition: transform 0.18s cubic-bezier(0.34,1.56,0.64,1); transform-origin: bottom;"
-               data-logo-bar></div>
-          <div>
-            <span class="heading-md text-white block" style="font-size:1.0625rem;">MD Recovery</span>
-            <span class="label-caps" style="color:#8299b5; font-size:0.6rem;">Transport & Repairs · Cavan</span>
-          </div>
-        </a>
+    <!-- The pill itself -->
+    <div id="nav-pill-inner" class="nav-pill" style="pointer-events: auto;">
 
-        <!-- Desktop links -->
-        <div class="hidden md:flex items-center gap-8">
-          <a href="#services"  class="nav-link">Services</a>
-          <a href="#why-us"    class="nav-link">Why Us</a>
-          <a href="#coverage"  class="nav-link">Coverage</a>
-          <a href="#contact"   class="nav-link">Contact</a>
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-2 mr-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt rounded-full px-1" aria-label="MD Recovery home">
+        <div style="width:3px;height:1.75rem;border-radius:99px;background:#1A5FD4;flex-shrink:0;" data-logo-bar></div>
+        <div>
+          <span class="heading-md text-white block" style="font-size:0.9375rem;">MD Recovery</span>
+          <span class="label-caps" style="color:#8299b5;font-size:0.58rem;">Cavan</span>
         </div>
+      </a>
 
-        <!-- CTA -->
-        <a href="tel:0852330052"
-           class="btn-primary hidden sm:flex items-center gap-2 rounded-full text-sm"
-           style="padding: 0.5625rem 1.25rem;"
-           aria-label="Call 085 233 0052">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-          </svg>
-          085 233 0052
-        </a>
-
-        <!-- Mobile toggle -->
-        <button id="mob-btn" class="md:hidden rounded-lg p-2 hover:bg-white/10 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt"
-                aria-label="Open menu" aria-expanded="false" style="color:#8299b5;">
-          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <line x1="3" y1="6" x2="21" y2="6"/>
-            <line x1="3" y1="12" x2="21" y2="12"/>
-            <line x1="3" y1="18" x2="21" y2="18"/>
-          </svg>
-        </button>
+      <!-- Desktop links -->
+      <div class="hidden md:flex items-center">
+        <a href="#services"  class="nav-link">Services</a>
+        <a href="#why-us"    class="nav-link">Why Us</a>
+        <a href="#coverage"  class="nav-link">Coverage</a>
+        <a href="#contact"   class="nav-link">Contact</a>
       </div>
+
+      <!-- Desktop CTA -->
+      <a href="tel:0852330052"
+         class="btn-primary hidden sm:flex items-center gap-2 rounded-full ml-2"
+         style="padding:0.5rem 1.125rem; font-size:0.8125rem; font-weight:700; white-space:nowrap;"
+         aria-label="Call 085 233 0052">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+        </svg>
+        085 233 0052
+      </a>
+
+      <!-- Mobile toggle -->
+      <button id="mob-btn"
+              class="md:hidden rounded-full p-2 ml-1 hover:bg-white/10 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt"
+              aria-label="Open menu" aria-expanded="false" style="color:#8299b5;">
+        <svg id="mob-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
     </div>
-    <!-- Mobile drawer -->
-    <div id="mob-menu" class="hidden md:hidden" style="border-top:1px solid rgba(255,255,255,0.07);">
-      <div class="px-6 py-5 flex flex-col gap-5">
-        <a href="#services"  class="nav-link text-sm">Services</a>
-        <a href="#why-us"    class="nav-link text-sm">Why Us</a>
-        <a href="#coverage"  class="nav-link text-sm">Coverage</a>
-        <a href="#contact"   class="nav-link text-sm">Contact</a>
+
+    <!-- Mobile dropdown — floats below pill -->
+    <div id="mob-menu" class="nav-dropdown hidden" style="pointer-events: auto;">
+      <div class="flex flex-col gap-1">
+        <a href="#services" class="nav-link" style="font-size:0.9375rem; padding:0.625rem 1rem;">Services</a>
+        <a href="#why-us"   class="nav-link" style="font-size:0.9375rem; padding:0.625rem 1rem;">Why Us</a>
+        <a href="#coverage" class="nav-link" style="font-size:0.9375rem; padding:0.625rem 1rem;">Coverage</a>
+        <a href="#contact"  class="nav-link" style="font-size:0.9375rem; padding:0.625rem 1rem;">Contact</a>
         <a href="tel:0852330052"
-           class="btn-primary flex items-center justify-center gap-2 rounded-full py-3"
-           style="font-size:0.9375rem;">
-          Call Now: 085 233 0052
+           class="btn-primary flex items-center justify-center gap-2 rounded-2xl mt-2"
+           style="padding:0.875rem 1.25rem; font-size:0.9375rem;">
+          Call: 085 233 0052
         </a>
       </div>
     </div>
   </nav>
 
   <!-- ============================================================
-       HERO — Asymmetric split: content left · photo right
+       HERO — Text + Service Image Accordion
   ============================================================ -->
-  <section class="hero-wrap">
+  <section class="hero-section relative overflow-hidden" style="background:#060d1b;">
+    <!-- Radial glows -->
+    <div style="position:absolute;top:-8%;left:-4%;width:640px;height:640px;border-radius:50%;background:radial-gradient(circle,rgba(26,95,212,0.16) 0%,transparent 70%);pointer-events:none;" aria-hidden="true"></div>
+    <div style="position:absolute;bottom:-8%;right:-4%;width:440px;height:440px;border-radius:50%;background:radial-gradient(circle,rgba(26,95,212,0.1) 0%,transparent 70%);pointer-events:none;" aria-hidden="true"></div>
 
-    <!-- LEFT: content -->
-    <div class="hero-content-col">
+    <div class="new-hero-inner">
 
-      <!-- Liquid glass badge -->
-      <div class="badge-glass anim mb-8" style="align-self: flex-start;">
-        <span style="width:6px;height:6px;border-radius:50%;background:#4d9fff;display:inline-block;animation:pulse 2s ease-in-out infinite;" aria-hidden="true"></span>
-        <span class="label-caps" style="color:#93c5fd;">24/7 · Cavan & Surrounding Counties</span>
-      </div>
-
-      <!-- Headline — Outfit 900, no gradient text -->
-      <h1 class="heading-xl anim d1 text-white mb-6"
-          style="font-size: clamp(3rem, 5.5vw, 5.25rem);">
-        Stranded?<br/>
-        <span style="color: #60a5fa;">We're On<br/>Our Way.</span>
-      </h1>
-
-      <!-- Sub -->
-      <p class="anim d2 mb-10"
-         style="font-family:'Inter',sans-serif; font-weight:400; font-size:1.0625rem; line-height:1.75; color:#8299b5; max-width:34rem;">
-        Fast, professional recovery, repairs &amp; storage across Cavan and surrounding counties. Day or night — we've got you covered.
-      </p>
-
-      <!-- CTAs -->
-      <div class="hero-cta-group anim d3 flex flex-wrap gap-4 mb-12">
-        <a href="tel:0852330052"
-           class="hero-phone-btn btn-primary phone-pulse flex items-center gap-3 rounded-2xl"
-           style="padding:1rem 2rem; font-size:clamp(1.125rem,2.5vw,1.375rem); letter-spacing:-0.025em;"
-           aria-label="Call 085 233 0052">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-          </svg>
-          085 233 0052
-        </a>
-        <a href="#services"
-           class="hero-outline-btn btn-outline flex items-center gap-2 rounded-2xl"
-           style="padding:1rem 1.75rem; font-size:0.9375rem;">
-          Our Services
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 5v14M5 12l7 7 7-7"/>
-          </svg>
-        </a>
-      </div>
-
-      <!-- Stat strip -->
-      <div class="hero-stats anim d4 flex flex-wrap gap-x-7 gap-y-3">
-        <div class="flex items-center gap-2">
-          <span style="width:5px;height:5px;border-radius:50%;background:#1A5FD4;display:inline-block;flex-shrink:0;"></span>
-          <span style="font-family:'Inter',sans-serif;font-size:0.8125rem;font-weight:500;color:#8299b5;">24/7 Available</span>
+      <!-- LEFT: hero text content -->
+      <div class="hero-text-col">
+        <div class="badge-glass anim mb-8" style="display:inline-flex;">
+          <span style="width:6px;height:6px;border-radius:50%;background:#4d9fff;display:inline-block;animation:pulse-dot 2s ease-in-out infinite;" aria-hidden="true"></span>
+          <span class="label-caps" style="color:#93c5fd;">24/7 · Cavan &amp; Surrounding Counties</span>
         </div>
-        <div class="flex items-center gap-2">
-          <span style="width:5px;height:5px;border-radius:50%;background:#1A5FD4;display:inline-block;flex-shrink:0;"></span>
-          <span style="font-family:'Inter',sans-serif;font-size:0.8125rem;font-weight:500;color:#8299b5;">Fast Response</span>
+
+        <h1 class="heading-xl anim d1 text-white mb-5"
+            style="font-size:clamp(3rem,5.5vw,5.25rem);">
+          Stranded?<br/>
+          <span style="color:#60a5fa;">We're On<br/>Our Way.</span>
+        </h1>
+
+        <p class="body-light anim d2 mb-10" style="font-size:1.0625rem; color:#8299b5; max-width:34rem;">
+          Fast, professional recovery, repairs &amp; storage across Cavan and surrounding counties. Day or night — we've got you covered.
+        </p>
+
+        <div class="hero-cta-group anim d3 flex flex-wrap gap-4 mb-12">
+          <a href="tel:0852330052"
+             class="hero-phone-btn btn-primary phone-pulse flex items-center gap-3 rounded-2xl"
+             style="padding:1rem 2rem; font-size:clamp(1.125rem,2.5vw,1.375rem); letter-spacing:-0.025em; font-weight:800;"
+             aria-label="Call 085 233 0052">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+            </svg>
+            085 233 0052
+          </a>
+          <a href="#services" class="hero-outline-btn btn-outline flex items-center gap-2 rounded-2xl"
+             style="padding:1rem 1.75rem; font-size:0.9375rem;">
+            Our Services
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+          </a>
         </div>
-        <div class="flex items-center gap-2">
-          <span style="width:5px;height:5px;border-radius:50%;background:#1A5FD4;display:inline-block;flex-shrink:0;"></span>
-          <span style="font-family:'Inter',sans-serif;font-size:0.8125rem;font-weight:500;color:#8299b5;">Based in Cavan</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <span style="width:5px;height:5px;border-radius:50%;background:#1A5FD4;display:inline-block;flex-shrink:0;"></span>
-          <span style="font-family:'Inter',sans-serif;font-size:0.8125rem;font-weight:500;color:#8299b5;">Fully Equipped</span>
+
+        <div class="hero-stats anim d4 flex flex-wrap gap-x-7 gap-y-3">
+          <div class="flex items-center gap-2">
+            <span style="width:5px;height:5px;border-radius:50%;background:#1A5FD4;display:inline-block;flex-shrink:0;"></span>
+            <span style="font-weight:300;font-size:0.8125rem;color:#8299b5;">24/7 Available</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span style="width:5px;height:5px;border-radius:50%;background:#1A5FD4;display:inline-block;flex-shrink:0;"></span>
+            <span style="font-weight:300;font-size:0.8125rem;color:#8299b5;">Fast Response</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span style="width:5px;height:5px;border-radius:50%;background:#1A5FD4;display:inline-block;flex-shrink:0;"></span>
+            <span style="font-weight:300;font-size:0.8125rem;color:#8299b5;">Based in Cavan</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span style="width:5px;height:5px;border-radius:50%;background:#1A5FD4;display:inline-block;flex-shrink:0;"></span>
+            <span style="font-weight:300;font-size:0.8125rem;color:#8299b5;">Fully Equipped</span>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- RIGHT: photo — fades into left -->
-    <div class="hero-photo-col">
-      <img
-        src="WhatsApp%20Image%202026-04-07%20at%2016.35.53%20(1).jpeg"
-        alt="MD Recovery flatbed truck transporting vehicles in Cavan"
-      />
+      <!-- RIGHT: Image Accordion — service names only, no descriptions -->
+      <div class="hero-acc-col">
+        <div class="hero-acc-track" id="heroAccordion" role="list">
+
+          <!-- 1: Breakdown & Recovery -->
+          <div class="acc-item is-active" data-acc="0" role="listitem" tabindex="0" aria-label="Breakdown and Recovery">
+            <img class="acc-bg"
+                 src="mdrecovery-cropped.jpeg"
+                 alt="MD Recovery flatbed truck at dusk"
+                 onerror="this.src='https://placehold.co/600x560/0e2040/60a5fa?text=Recovery'" />
+            <div class="acc-overlay"></div>
+            <span class="acc-label-v" aria-hidden="true">Breakdown &amp; Recovery</span>
+            <div class="acc-hero-label">
+              <h2 class="acc-hero-title">Breakdown &amp; Recovery</h2>
+            </div>
+          </div>
+
+          <!-- 2: Vehicle Transport -->
+          <div class="acc-item" data-acc="1" role="listitem" tabindex="0" aria-label="Vehicle Transport">
+            <img class="acc-bg"
+                 src="transport1.jpeg"
+                 alt="MD Recovery truck transporting vehicles"
+                 onerror="this.src='https://placehold.co/600x560/0e2040/60a5fa?text=Transport'" />
+            <div class="acc-overlay"></div>
+            <span class="acc-label-v" aria-hidden="true">Vehicle Transport</span>
+            <div class="acc-hero-label">
+              <h2 class="acc-hero-title">Vehicle Transport</h2>
+            </div>
+          </div>
+
+          <!-- 3: Storage Facility -->
+          <div class="acc-item" data-acc="2" role="listitem" tabindex="0" aria-label="Storage Facility">
+            <img class="acc-bg"
+                 src="storage1.jpeg"
+                 alt="Secure vehicle storage compound"
+                 onerror="this.src='https://placehold.co/600x560/0e2040/60a5fa?text=Storage'" />
+            <div class="acc-overlay"></div>
+            <span class="acc-label-v" aria-hidden="true">Storage Facility</span>
+            <div class="acc-hero-label">
+              <h2 class="acc-hero-title">Storage Facility</h2>
+            </div>
+          </div>
+
+          <!-- 4: Mechanical Repairs -->
+          <div class="acc-item" data-acc="3" role="listitem" tabindex="0" aria-label="Mechanical Repairs">
+            <img class="acc-bg"
+                 src="mechanics1.jpeg"
+                 alt="Car on a lift in the workshop"
+                 onerror="this.src='https://placehold.co/600x560/0e2040/60a5fa?text=Repairs'" />
+            <div class="acc-overlay"></div>
+            <span class="acc-label-v" aria-hidden="true">Mechanical Repairs</span>
+            <div class="acc-hero-label">
+              <h2 class="acc-hero-title">Mechanical Repairs</h2>
+            </div>
+          </div>
+
+          <!-- 5: Diagnostic Scans -->
+          <div class="acc-item" data-acc="4" role="listitem" tabindex="0" aria-label="Diagnostic Scans">
+            <img class="acc-bg"
+                 src="mechanics3.jpeg"
+                 alt="Technician using diagnostic scanner on vehicle"
+                 onerror="this.src='https://placehold.co/600x560/0e2040/60a5fa?text=Diagnostics'" />
+            <div class="acc-overlay"></div>
+            <span class="acc-label-v" aria-hidden="true">Diagnostic Scans</span>
+            <div class="acc-hero-label">
+              <h2 class="acc-hero-title">Diagnostic Scans</h2>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
     </div>
   </section>
 
   <!-- ============================================================
-       SERVICES — Asymmetric bento grid
+       SERVICES — Full-screen sliding component
   ============================================================ -->
-  <section id="services" class="py-24 lg:py-32" style="background: #EFF4FB; background-image: radial-gradient(circle at 85% 15%, rgba(26,95,212,0.05) 0%, transparent 50%);">
+  <!-- ============================================================
+       SERVICES — Features Carousel
+  ============================================================ -->
+  <section id="services" style="background:#EFF4FB; padding: 5rem 0 7rem;">
+
+    <!-- Section header -->
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
-
-      <div class="mb-14">
-        <span class="label-caps" style="color:#1A5FD4; display:block; margin-bottom:0.75rem;">What We Do</span>
-        <h2 class="heading-lg" style="font-size:clamp(1.875rem,4vw,2.875rem); color:#091526; max-width:26rem;">
-          Everything You Need,<br/>When You Need It
-        </h2>
+      <div class="ftr-header">
+        <div>
+          <span class="label-caps" style="color:#1A5FD4; display:block; margin-bottom:0.75rem;">What We Do</span>
+          <h2 class="heading-lg" style="font-size:clamp(1.875rem,4vw,2.75rem); color:#091526;">
+            Everything You Need,<br/>When You Need It
+          </h2>
+          <a href="tel:0852330052" class="ftr-cta-link" aria-label="Call MD Recovery">
+            Call 085 233 0052
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </a>
+        </div>
+        <div class="ftr-arrows">
+          <button class="ftr-arr-btn" id="ftrPrev" aria-label="Previous service" disabled>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button class="ftr-arr-btn" id="ftrNext" aria-label="Next service">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
       </div>
+    </div>
 
-      <!-- Bento: feature left (spans 2 rows) + 2 right + 2 bottom-right -->
-      <div class="bento-grid">
+    <!-- Carousel — full-width bleed -->
+    <div class="ftr-car-outer">
+      <div class="ftr-car-track" id="ftrCarTrack">
 
-        <!-- FEATURE: Breakdown & Recovery -->
-        <div class="bento-feature">
-          <!-- Large truck image in feature card -->
-          <div style="position:absolute;inset:0;overflow:hidden;border-radius:20px;">
-            <img src="WhatsApp%20Image%202026-04-07%20at%2016.35.53.jpeg"
-                 alt="MD Recovery truck with forklift"
-                 style="width:100%;height:100%;object-fit:cover;object-position:center 55%;opacity:0.28;"
-            />
-          </div>
-          <div style="position:relative;z-index:2;">
-            <div class="icon-wrap" style="background:rgba(26,95,212,0.2); margin-bottom:0.5rem;">
+        <!-- Card 1: Breakdown & Recovery -->
+        <div class="ftr-car-item">
+          <a href="tel:0852330052" class="ftr-card group">
+            <div class="ftr-img-wrap">
+              <img src="mdrecovery-cropped.jpeg"
+                   alt="MD Recovery flatbed truck at dusk"
+                   onerror="this.src='https://placehold.co/800x533/091526/60a5fa?text=Recovery'" />
+            </div>
+            <span class="ftr-service-tag">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="#1A5FD4" aria-hidden="true"><circle cx="12" cy="12" r="5"/></svg>
+              24/7 Service
+            </span>
+            <h3 class="ftr-card-title">Breakdown &amp; Recovery</h3>
+            <p class="ftr-card-desc">24/7 roadside call-out, towing and accident recovery across Cavan and beyond. We mobilise fast — wherever you're stranded.</p>
+            <span class="ftr-read-more">
+              Call now
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </a>
+        </div>
+
+        <!-- Card 2: Vehicle Transport -->
+        <div class="ftr-car-item">
+          <a href="tel:0852330052" class="ftr-card group">
+            <div class="ftr-img-wrap">
+              <img src="transport1.jpeg"
+                   alt="MD Recovery truck transporting vehicles"
+                   onerror="this.src='https://placehold.co/800x533/091526/60a5fa?text=Transport'" />
+            </div>
+            <span class="ftr-service-tag">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="#1A5FD4" aria-hidden="true"><circle cx="12" cy="12" r="5"/></svg>
+              Nationwide
+            </span>
+            <h3 class="ftr-card-title">Vehicle Transport</h3>
+            <p class="ftr-card-desc">Safe flatbed transport for cars, motorcycles and light commercials — anywhere you need them moved, collected or delivered.</p>
+            <span class="ftr-read-more">
+              Book transport
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </a>
+        </div>
+
+        <!-- Card 3: Storage Facility -->
+        <div class="ftr-car-item">
+          <a href="tel:0852330052" class="ftr-card group">
+            <div class="ftr-img-wrap">
+              <img src="storage1.jpeg"
+                   alt="Secure vehicle storage compound"
+                   onerror="this.src='https://placehold.co/800x533/091526/60a5fa?text=Storage'" />
+            </div>
+            <span class="ftr-service-tag">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="#1A5FD4" aria-hidden="true"><circle cx="12" cy="12" r="5"/></svg>
+              Short &amp; Long Term
+            </span>
+            <h3 class="ftr-card-title">Storage Facility</h3>
+            <p class="ftr-card-desc">Secure short and long-term vehicle storage while you arrange next steps. Gated, covered and properly managed.</p>
+            <span class="ftr-read-more">
+              Enquire now
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </a>
+        </div>
+
+        <!-- Card 4: Mechanical Repairs -->
+        <div class="ftr-car-item">
+          <a href="tel:0852330052" class="ftr-card group">
+            <div class="ftr-img-wrap">
+              <img src="mechanics2.jpeg"
+                   alt="Mechanic working on engine bay"
+                   onerror="this.src='https://placehold.co/800x533/091526/60a5fa?text=Repairs'" />
+            </div>
+            <span class="ftr-service-tag">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="#1A5FD4" aria-hidden="true"><circle cx="12" cy="12" r="5"/></svg>
+              All Makes &amp; Models
+            </span>
+            <h3 class="ftr-card-title">Mechanical Repairs</h3>
+            <p class="ftr-card-desc">Full servicing and mechanical repairs — from minor fixes to major jobs. Carried out professionally in our fully equipped workshop.</p>
+            <span class="ftr-read-more">
+              Book a repair
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </a>
+        </div>
+
+        <!-- Card 5: Diagnostic Scans -->
+        <div class="ftr-car-item">
+          <a href="tel:0852330052" class="ftr-card group">
+            <div class="ftr-img-wrap">
+              <img src="mechanics3.jpeg"
+                   alt="Technician using diagnostic scanner on vehicle"
+                   onerror="this.src='https://placehold.co/800x533/091526/60a5fa?text=Diagnostics'" />
+            </div>
+            <span class="ftr-service-tag">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="#1A5FD4" aria-hidden="true"><circle cx="12" cy="12" r="5"/></svg>
+              All Fault Codes
+            </span>
+            <h3 class="ftr-card-title">Diagnostic Scans</h3>
+            <p class="ftr-card-desc">OBD plug-in diagnostics to identify engine faults fast. Know exactly what's wrong before spending a penny on unnecessary repairs.</p>
+            <span class="ftr-read-more">
+              Book a scan
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+      <!-- Slider -->
+      <div class="svc-slider-wrap" id="svcSlider">
+
+        <!-- Progress bar -->
+        <div class="svc-progress"><div class="svc-progress-fill" id="svcProgressFill"></div></div>
+
+        <!-- Slide 1: Breakdown & Recovery — real truck photo -->
+        <div class="svc-slide active" data-index="0">
+          <img class="svc-slide-bg"
+               src="WhatsApp%20Image%202026-04-07%20at%2016.35.53.jpeg"
+               alt="MD Recovery truck with forklift, Cavan" />
+          <div class="svc-slide-overlay"></div>
+          <div class="svc-slide-content">
+            <span class="svc-num">01 / 04</span>
+            <div class="svc-icon-wrap">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/>
                 <circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
               </svg>
             </div>
-            <h3 class="heading-md text-white mb-2" style="font-size:1.375rem;">Breakdown &amp;<br/>Recovery</h3>
-            <p style="font-family:'Inter',sans-serif;font-size:0.875rem;line-height:1.7;color:#8299b5;">
-              24/7 roadside call-out, towing, and accident recovery. We mobilise fast — wherever you are across Cavan and beyond.
-            </p>
-            <a href="tel:0852330052" class="card-link" style="color:#60a5fa; margin-top:0.75rem;">
+            <h3 class="svc-title">Breakdown &amp; Recovery</h3>
+            <p class="svc-desc">24/7 roadside call-out, towing, and accident recovery across Cavan and beyond. We mobilise fast — wherever you're stranded.</p>
+            <a href="tel:0852330052" class="svc-cta">
               Call now
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
         </div>
 
-        <!-- Storage -->
-        <div class="bento-card">
-          <div class="icon-wrap">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A5FD4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-              <polyline points="9 22 9 12 15 12 15 22"/>
-            </svg>
+        <!-- Slide 2: Storage Facility -->
+        <div class="svc-slide" data-index="1">
+          <img class="svc-slide-bg"
+               src="https://picsum.photos/seed/vehicle-secure-storage/1400/800"
+               alt="Secure vehicle storage facility" />
+          <div class="svc-slide-overlay"></div>
+          <div class="svc-slide-content">
+            <span class="svc-num">02 / 04</span>
+            <div class="svc-icon-wrap">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+            </div>
+            <h3 class="svc-title">Storage Facility</h3>
+            <p class="svc-desc">Secure short and long-term vehicle storage while you arrange next steps. Your vehicle is safe with us.</p>
+            <a href="tel:0852330052" class="svc-cta">
+              Enquire now
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
           </div>
-          <div>
-            <h3 class="heading-md mb-1.5" style="font-size:1.0625rem; color:#091526;">Storage Facility</h3>
-            <p style="font-family:'Inter',sans-serif;font-size:0.8125rem;line-height:1.7;color:#5a7496;">Secure short and long-term vehicle storage while you arrange next steps.</p>
-          </div>
-          <a href="tel:0852330052" class="card-link">
-            Enquire
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
         </div>
 
-        <!-- Mechanical -->
-        <div class="bento-card">
-          <div class="icon-wrap">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A5FD4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
-            </svg>
+        <!-- Slide 3: Mechanical Repairs -->
+        <div class="svc-slide" data-index="2">
+          <img class="svc-slide-bg"
+               src="https://picsum.photos/seed/car-workshop-mechanic/1400/800"
+               alt="Professional car mechanic workshop" />
+          <div class="svc-slide-overlay"></div>
+          <div class="svc-slide-content">
+            <span class="svc-num">03 / 04</span>
+            <div class="svc-icon-wrap">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+              </svg>
+            </div>
+            <h3 class="svc-title">Mechanical Repairs</h3>
+            <p class="svc-desc">Full servicing and mechanical work — from minor fixes to major jobs. Completed professionally, every time.</p>
+            <a href="tel:0852330052" class="svc-cta">
+              Book a repair
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
           </div>
-          <div>
-            <h3 class="heading-md mb-1.5" style="font-size:1.0625rem; color:#091526;">Mechanical Repairs</h3>
-            <p style="font-family:'Inter',sans-serif;font-size:0.8125rem;line-height:1.7;color:#5a7496;">Full servicing and mechanical work. Minor fixes to major jobs — done properly.</p>
-          </div>
-          <a href="tel:0852330052" class="card-link">
-            Book a repair
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
         </div>
 
-        <!-- Diagnostics -->
-        <div class="bento-card bento-diag">
-          <div class="bento-diag-inner" style="display:flex;align-items:flex-start;gap:1.25rem;flex-wrap:wrap;">
-            <div class="icon-wrap" style="flex-shrink:0;">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A5FD4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <!-- Slide 4: Diagnostic Scans -->
+        <div class="svc-slide" data-index="3">
+          <img class="svc-slide-bg"
+               src="https://picsum.photos/seed/car-obd-diagnostics/1400/800"
+               alt="Vehicle OBD diagnostic scan" />
+          <div class="svc-slide-overlay"></div>
+          <div class="svc-slide-content">
+            <span class="svc-num">04 / 04</span>
+            <div class="svc-icon-wrap">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
                 <line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
                 <path d="M7 10h2l2-4 2 8 2-4h2"/>
               </svg>
             </div>
-            <div style="flex:1;min-width:0;">
-              <h3 class="heading-md mb-1.5" style="font-size:1.0625rem; color:#091526;">Diagnostic Scans</h3>
-              <p style="font-family:'Inter',sans-serif;font-size:0.8125rem;line-height:1.7;color:#5a7496;">Plug-in diagnostic scans to identify faults fast. Know exactly what's wrong before spending a penny on repairs.</p>
-            </div>
-            <a href="tel:0852330052" class="card-link" style="align-self:flex-end;">
+            <h3 class="svc-title">Diagnostic Scans</h3>
+            <p class="svc-desc">Plug-in OBD diagnostic scans to identify faults fast. Know exactly what's wrong before spending a penny on repairs.</p>
+            <a href="tel:0852330052" class="svc-cta">
               Book a scan
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
         </div>
 
-      </div><!-- /bento-grid -->
+      </div><!-- /svc-slider-wrap -->
+
+      <!-- Controls row below slider -->
+      <div class="svc-controls mt-4">
+        <div class="svc-dots" id="svcDots">
+          <button class="svc-dot active" data-slide="0" aria-label="Go to slide 1"></button>
+          <button class="svc-dot" data-slide="1" aria-label="Go to slide 2"></button>
+          <button class="svc-dot" data-slide="2" aria-label="Go to slide 3"></button>
+          <button class="svc-dot" data-slide="3" aria-label="Go to slide 4"></button>
+        </div>
+        <div class="svc-arrows sm:hidden">
+          <button class="svc-arrow" id="svcPrev" aria-label="Previous service">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button class="svc-arrow" id="svcNext" aria-label="Next service">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+
     </div>
   </section>
 
+
   <!-- ============================================================
-       WHY US — dark, trust signals
+       WHY US — Auto-scrolling trust carousel
   ============================================================ -->
   <section id="why-us" class="py-20 lg:py-28 relative overflow-hidden" style="background:#060d1b;">
     <!-- Radial glows -->
     <div style="position:absolute;top:-15%;right:-8%;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(26,95,212,0.14) 0%,transparent 70%);pointer-events:none;" aria-hidden="true"></div>
     <div style="position:absolute;bottom:-15%;left:-8%;width:460px;height:460px;border-radius:50%;background:radial-gradient(circle,rgba(26,95,212,0.1) 0%,transparent 70%);pointer-events:none;" aria-hidden="true"></div>
 
-    <div class="max-w-7xl mx-auto px-6 lg:px-8 relative" style="z-index:1;">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 relative" style="z-index:1;">
 
-      <div class="text-center mb-14">
+      <div class="text-center mb-12">
         <span class="label-caps" style="color:#1A5FD4; display:block; margin-bottom:0.75rem;">Why MD Recovery</span>
         <h2 class="heading-lg text-white" style="font-size:clamp(1.75rem,4vw,2.75rem);">Professional. Fast. Local.</h2>
       </div>
 
-      <!-- Second truck photo -->
-      <div class="why-photo" style="border-radius:20px;overflow:hidden;max-height:360px;margin-bottom:3rem;position:relative;">
-        <img src="WhatsApp%20Image%202026-04-07%20at%2016.35.53%20(1).jpeg"
-             alt="MD Recovery flatbed truck in Cavan"
-             style="width:100%;max-height:360px;object-fit:cover;object-position:center 45%;display:block;"
-        />
-        <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(6,13,27,0.5) 0%, transparent 40%, rgba(6,13,27,0.5) 100%), linear-gradient(to bottom,transparent 50%,rgba(6,13,27,0.65) 100%);"></div>
+      <!-- Auto-scrolling carousel -->
+      <div class="trust-carousel-wrap" id="trustCarousel">
+        <div class="trust-track" id="trustTrack">
+
+          <!-- Slide 1: 24/7 -->
+          <div class="trust-slide">
+            <div class="trust-icon-wrap">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <h3 class="trust-slide-title">24/7 Availability</h3>
+            <p class="trust-slide-body">Day, night, weekend or bank holiday — we're always just one call away. Breakdowns don't keep business hours, and neither do we.</p>
+          </div>
+
+          <!-- Slide 2: Fast Response -->
+          <div class="trust-slide">
+            <div class="trust-icon-wrap">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+              </svg>
+            </div>
+            <h3 class="trust-slide-title">Fast Response</h3>
+            <p class="trust-slide-body">We mobilise quickly so you're not left waiting on the roadside. Local base means shorter drive times and faster help when you need it most.</p>
+          </div>
+
+          <!-- Slide 3: Local Expertise -->
+          <div class="trust-slide">
+            <div class="trust-icon-wrap">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <h3 class="trust-slide-title">Local Expertise</h3>
+            <p class="trust-slide-body">Based in Cavan with deep knowledge of local roads, routes, and the surrounding region. We know the area — and we use that to get to you faster.</p>
+          </div>
+
+          <!-- Slide 4: Fully Equipped -->
+          <div class="trust-slide">
+            <div class="trust-icon-wrap">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <h3 class="trust-slide-title">Fully Equipped</h3>
+            <p class="trust-slide-body">Professional flatbed fleet and full tooling to handle everything from cars and motorbikes to light commercials and heavier vehicles.</p>
+          </div>
+
+        </div>
       </div>
 
-      <!-- 4 trust items -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <!-- Progress bar -->
+      <div class="trust-progress-bar"><div class="trust-progress-fill" id="trustProgressFill"></div></div>
 
-        <div class="trust-item">
-          <div style="width:3.25rem;height:3.25rem;border-radius:14px;background:rgba(26,95,212,0.14);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          </div>
-          <h3 class="heading-md text-white mb-1.5" style="font-size:0.9375rem;">24/7 Availability</h3>
-          <p style="font-family:'Inter',sans-serif;font-size:0.8rem;line-height:1.65;color:#8299b5;">Day, night, weekend or bank holiday — one call away.</p>
-        </div>
-
-        <div class="trust-item">
-          <div style="width:3.25rem;height:3.25rem;border-radius:14px;background:rgba(26,95,212,0.14);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-          </div>
-          <h3 class="heading-md text-white mb-1.5" style="font-size:0.9375rem;">Fast Response</h3>
-          <p style="font-family:'Inter',sans-serif;font-size:0.8rem;line-height:1.65;color:#8299b5;">We mobilise quickly so you're not left waiting on the roadside.</p>
-        </div>
-
-        <div class="trust-item">
-          <div style="width:3.25rem;height:3.25rem;border-radius:14px;background:rgba(26,95,212,0.14);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          </div>
-          <h3 class="heading-md text-white mb-1.5" style="font-size:0.9375rem;">Local Expertise</h3>
-          <p style="font-family:'Inter',sans-serif;font-size:0.8rem;line-height:1.65;color:#8299b5;">Based in Cavan, with deep knowledge of local roads and the area.</p>
-        </div>
-
-        <div class="trust-item">
-          <div style="width:3.25rem;height:3.25rem;border-radius:14px;background:rgba(26,95,212,0.14);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          </div>
-          <h3 class="heading-md text-white mb-1.5" style="font-size:0.9375rem;">Fully Equipped</h3>
-          <p style="font-family:'Inter',sans-serif;font-size:0.8rem;line-height:1.65;color:#8299b5;">Professional fleet and tooling for cars, commercials and more.</p>
-        </div>
-
+      <!-- Dots -->
+      <div class="trust-dots" id="trustDots">
+        <button class="trust-dot active" data-trust="0" aria-label="Trust point 1"></button>
+        <button class="trust-dot" data-trust="1" aria-label="Trust point 2"></button>
+        <button class="trust-dot" data-trust="2" aria-label="Trust point 3"></button>
+        <button class="trust-dot" data-trust="3" aria-label="Trust point 4"></button>
       </div>
+
     </div>
   </section>
 
@@ -816,11 +1417,10 @@
         <div>
           <span class="label-caps" style="color:#1A5FD4; display:block; margin-bottom:0.75rem;">Coverage Area</span>
           <h2 class="heading-lg mb-6" style="font-size:clamp(1.75rem,4vw,2.75rem); color:#091526;">Where We Operate</h2>
-          <p style="font-family:'Inter',sans-serif;font-size:1.0625rem;line-height:1.75;color:#5a7496;margin-bottom:2rem;">
+          <p class="body-light mb-8" style="font-size:1.0625rem; color:#5a7496; max-width:38rem;">
             Based in Cavan and covering the surrounding counties — we're never far away when you need us most. Whether you're on a back road in Leitrim or a motorway in Meath, we'll get to you.
           </p>
 
-          <!-- County pills -->
           <div style="display:flex;flex-wrap:wrap;gap:0.625rem;margin-bottom:2.5rem;">
             <span class="county-pill"><span style="width:6px;height:6px;border-radius:50%;background:#1A5FD4;display:inline-block;"></span>Cavan</span>
             <span class="county-pill"><span style="width:6px;height:6px;border-radius:50%;background:#1A5FD4;display:inline-block;"></span>Monaghan</span>
@@ -828,9 +1428,7 @@
             <span class="county-pill"><span style="width:6px;height:6px;border-radius:50%;background:#1A5FD4;display:inline-block;"></span>Leitrim</span>
             <span class="county-pill"><span style="width:6px;height:6px;border-radius:50%;background:#1A5FD4;display:inline-block;"></span>Longford</span>
             <span class="county-pill"><span style="width:6px;height:6px;border-radius:50%;background:#1A5FD4;display:inline-block;"></span>Roscommon</span>
-            <span style="display:inline-flex;align-items:center;padding:0.5rem 1rem;border-radius:99px;border:1px dashed rgba(26,95,212,0.35);font-family:'Inter',sans-serif;font-size:0.8125rem;font-weight:500;color:#1A5FD4;background:rgba(26,95,212,0.05);">
-              &amp; more on request
-            </span>
+            <span style="display:inline-flex;align-items:center;padding:0.5rem 1rem;border-radius:99px;border:1px dashed rgba(26,95,212,0.35);font-size:0.8125rem;font-weight:500;color:#1A5FD4;background:rgba(26,95,212,0.05);">&amp; more on request</span>
           </div>
 
           <blockquote style="padding-left:1.25rem;border-left:3px solid #1A5FD4;">
@@ -840,20 +1438,17 @@
           </blockquote>
         </div>
 
-        <!-- Map visual -->
         <div class="map-visual">
           <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1;gap:0.875rem;">
-            <!-- Rings -->
             <div style="position:absolute;width:200px;height:200px;border-radius:50%;border:1px solid rgba(26,95,212,0.2);" aria-hidden="true"></div>
             <div style="position:absolute;width:300px;height:300px;border-radius:50%;border:1px solid rgba(26,95,212,0.12);" aria-hidden="true"></div>
             <div style="position:absolute;width:400px;height:400px;border-radius:50%;border:1px solid rgba(26,95,212,0.07);" aria-hidden="true"></div>
-            <!-- Pin -->
             <div style="position:relative;z-index:2;text-align:center;">
               <div style="width:4.5rem;height:4.5rem;border-radius:50%;background:rgba(26,95,212,0.18);box-shadow:0 0 0 10px rgba(26,95,212,0.07),0 0 0 22px rgba(26,95,212,0.04);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
               </div>
               <p class="heading-md text-white" style="font-size:1.125rem;">Cavan, Ireland</p>
-              <p style="font-family:'Inter',sans-serif;font-size:0.8125rem;color:#8299b5;margin-top:0.25rem;">&amp; Surrounding Counties</p>
+              <p style="font-size:0.8125rem;color:#8299b5;font-weight:300;margin-top:0.25rem;">&amp; Surrounding Counties</p>
             </div>
           </div>
         </div>
@@ -866,7 +1461,6 @@
        CONTACT CTA
   ============================================================ -->
   <section id="contact" class="py-24 lg:py-32 relative overflow-hidden" style="background:#060d1b;">
-    <!-- Centre glow -->
     <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:350px;border-radius:50%;background:radial-gradient(ellipse,rgba(26,95,212,0.2) 0%,transparent 70%);pointer-events:none;" aria-hidden="true"></div>
 
     <div class="max-w-3xl mx-auto px-6 lg:px-8 text-center relative" style="z-index:1;">
@@ -876,14 +1470,13 @@
         Need Help<br/>Right Now?
       </h2>
 
-      <p style="font-family:'Inter',sans-serif;font-size:1.0625rem;line-height:1.75;color:#8299b5;max-width:30rem;margin:0 auto 3rem;">
+      <p class="body-light mb-12 mx-auto" style="font-size:1.0625rem;color:#8299b5;max-width:30rem;">
         Available 24 hours a day, 7 days a week. Call us directly and we'll be on our way.
       </p>
 
-      <!-- Giant phone -->
       <a href="tel:0852330052"
          class="contact-phone-btn btn-primary phone-pulse inline-flex items-center gap-4 rounded-2xl mx-auto mb-5"
-         style="padding:1.25rem 2.75rem; font-size:clamp(1.5rem,4vw,2.25rem); letter-spacing:-0.04em; font-family:'Outfit',sans-serif; font-weight:900;"
+         style="padding:1.25rem 2.75rem;font-size:clamp(1.5rem,4vw,2.25rem);letter-spacing:-0.04em;font-weight:900;"
          aria-label="Call 085 233 0052">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
@@ -894,7 +1487,7 @@
       <div style="display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;">
         <a href="mailto:Martindempsey5588@gmail.com"
            class="contact-email-btn btn-outline inline-flex items-center gap-2.5 rounded-2xl"
-           style="padding:1rem 1.75rem; font-size:0.9375rem;"
+           style="padding:1rem 1.75rem;font-size:0.9375rem;"
            aria-label="Email Martindempsey5588@gmail.com">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
@@ -916,7 +1509,6 @@
   <footer class="py-10" style="background:#060d1b;border-top:1px solid rgba(255,255,255,0.05);">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-
         <div>
           <div class="flex items-center gap-2.5 mb-3">
             <div style="width:3px;height:2rem;border-radius:99px;background:#1A5FD4;flex-shrink:0;"></div>
@@ -925,62 +1517,145 @@
               <span class="label-caps" style="color:#8299b5;font-size:0.6rem;">Transport &amp; Repairs · Cavan, Ireland</span>
             </div>
           </div>
-          <p style="font-family:'Inter',sans-serif;font-size:0.75rem;line-height:1.6;color:rgba(130,153,181,0.55);max-width:20rem;">
+          <p class="body-light" style="font-size:0.75rem;color:rgba(130,153,181,0.55);max-width:20rem;">
             Fast, professional recovery, repairs &amp; storage across Cavan and surrounding counties.
           </p>
         </div>
-
         <nav style="display:flex;flex-wrap:wrap;gap:1.25rem 2.5rem;" aria-label="Footer navigation">
-          <a href="#services"  style="font-family:'Inter',sans-serif;font-size:0.75rem;color:rgba(130,153,181,0.55);transition:color 0.15s;" onmouseover="this.style.color='#8299b5'" onmouseout="this.style.color='rgba(130,153,181,0.55)'">Services</a>
-          <a href="#why-us"    style="font-family:'Inter',sans-serif;font-size:0.75rem;color:rgba(130,153,181,0.55);transition:color 0.15s;" onmouseover="this.style.color='#8299b5'" onmouseout="this.style.color='rgba(130,153,181,0.55)'">Why Us</a>
-          <a href="#coverage"  style="font-family:'Inter',sans-serif;font-size:0.75rem;color:rgba(130,153,181,0.55);transition:color 0.15s;" onmouseover="this.style.color='#8299b5'" onmouseout="this.style.color='rgba(130,153,181,0.55)'">Coverage</a>
-          <a href="tel:0852330052" style="font-family:'Inter',sans-serif;font-size:0.75rem;color:#1A5FD4;transition:color 0.15s;" onmouseover="this.style.color='#3578e8'" onmouseout="this.style.color='#1A5FD4'">085 233 0052</a>
-          <a href="mailto:Martindempsey5588@gmail.com" style="font-family:'Inter',sans-serif;font-size:0.75rem;color:rgba(130,153,181,0.55);transition:color 0.15s;" onmouseover="this.style.color='#8299b5'" onmouseout="this.style.color='rgba(130,153,181,0.55)'">Email</a>
+          <a href="#services"  style="font-size:0.75rem;color:rgba(130,153,181,0.55);transition:color 0.15s;" onmouseover="this.style.color='#8299b5'" onmouseout="this.style.color='rgba(130,153,181,0.55)'">Services</a>
+          <a href="#why-us"    style="font-size:0.75rem;color:rgba(130,153,181,0.55);transition:color 0.15s;" onmouseover="this.style.color='#8299b5'" onmouseout="this.style.color='rgba(130,153,181,0.55)'">Why Us</a>
+          <a href="#coverage"  style="font-size:0.75rem;color:rgba(130,153,181,0.55);transition:color 0.15s;" onmouseover="this.style.color='#8299b5'" onmouseout="this.style.color='rgba(130,153,181,0.55)'">Coverage</a>
+          <a href="tel:0852330052" style="font-size:0.75rem;color:#1A5FD4;transition:color 0.15s;" onmouseover="this.style.color='#3578e8'" onmouseout="this.style.color='#1A5FD4'">085 233 0052</a>
+          <a href="mailto:Martindempsey5588@gmail.com" style="font-size:0.75rem;color:rgba(130,153,181,0.55);transition:color 0.15s;" onmouseover="this.style.color='#8299b5'" onmouseout="this.style.color='rgba(130,153,181,0.55)'">Email</a>
         </nav>
       </div>
-
       <div style="margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,0.05);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:0.75rem;">
-        <p style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(130,153,181,0.3);">© 2026 MD Recovery, Transport &amp; Repairs. Cavan, Ireland.</p>
-        <p style="font-family:'Inter',sans-serif;font-size:0.7rem;color:rgba(130,153,181,0.3);">All rights reserved.</p>
+        <p style="font-size:0.7rem;color:rgba(130,153,181,0.3);">© 2026 MD Recovery, Transport &amp; Repairs. Cavan, Ireland.</p>
+        <p style="font-size:0.7rem;color:rgba(130,153,181,0.3);">All rights reserved.</p>
       </div>
     </div>
   </footer>
 
   <!-- ============================================================
-       JS
+       JAVASCRIPT
   ============================================================ -->
-  <style>
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50%       { opacity: 0.6; transform: scale(0.85); }
-    }
-  </style>
   <script>
-    // Nav scroll shadow
-    const nav = document.getElementById('navbar');
+  (function () {
+
+    /* ── FLOATING NAV ─────────────────────────────────────────── */
+    const pill = document.getElementById('nav-pill-inner');
     window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 12);
+      pill.classList.toggle('scrolled', window.scrollY > 20);
     }, { passive: true });
 
-    // Mobile menu
-    const btn  = document.getElementById('mob-btn');
-    const menu = document.getElementById('mob-menu');
-    btn.addEventListener('click', () => {
-      const open = menu.classList.toggle('hidden');
-      btn.setAttribute('aria-expanded', String(!menu.classList.contains('hidden')));
+    const mobBtn  = document.getElementById('mob-btn');
+    const mobMenu = document.getElementById('mob-menu');
+    mobBtn.addEventListener('click', () => {
+      const open = mobMenu.classList.toggle('hidden');
+      mobBtn.setAttribute('aria-expanded', String(!mobMenu.classList.contains('hidden')));
     });
-    menu.querySelectorAll('a').forEach(l => l.addEventListener('click', () => {
-      menu.classList.add('hidden');
-      btn.setAttribute('aria-expanded', 'false');
+    mobMenu.querySelectorAll('a').forEach(l => l.addEventListener('click', () => {
+      mobMenu.classList.add('hidden');
+      mobBtn.setAttribute('aria-expanded', 'false');
     }));
 
-    // Logo bar spring on hover
-    const logoBar = document.querySelector('[data-logo-bar]');
+    // Logo bar spring
+    const logoBar  = document.querySelector('[data-logo-bar]');
     const logoLink = logoBar?.closest('a');
     if (logoLink && logoBar) {
-      logoLink.addEventListener('mouseenter', () => { logoBar.style.transform = 'scaleY(1.3)'; });
+      logoLink.addEventListener('mouseenter', () => { logoBar.style.transform = 'scaleY(1.35)'; logoBar.style.transition = 'transform 0.2s cubic-bezier(0.34,1.56,0.64,1)'; });
       logoLink.addEventListener('mouseleave', () => { logoBar.style.transform = 'scaleY(1)'; });
     }
+
+    /* ── FEATURES CAROUSEL ─────────────────────────────────── */
+    (function () {
+      const track = document.getElementById('ftrCarTrack');
+      const prevBtn = document.getElementById('ftrPrev');
+      const nextBtn = document.getElementById('ftrNext');
+      if (!track) return;
+      const itemWidth = () => { const el = track.querySelector('.ftr-car-item'); return el ? el.offsetWidth + 20 : 400; };
+      prevBtn?.addEventListener('click', () => track.scrollBy({ left: -itemWidth(), behavior: 'smooth' }));
+      nextBtn?.addEventListener('click', () => track.scrollBy({ left: itemWidth(), behavior: 'smooth' }));
+      function updateBtns() {
+        if (prevBtn) prevBtn.disabled = track.scrollLeft <= 0;
+        if (nextBtn) nextBtn.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 1;
+      }
+      track.addEventListener('scroll', updateBtns, { passive: true });
+      updateBtns();
+      // Drag to scroll
+      let drag = false, startX = 0, startScroll = 0;
+      track.addEventListener('mousedown', e => { drag = true; startX = e.pageX; startScroll = track.scrollLeft; track.style.userSelect = 'none'; });
+      document.addEventListener('mousemove', e => { if (!drag) return; track.scrollLeft = startScroll - (e.pageX - startX); });
+      document.addEventListener('mouseup', () => { drag = false; track.style.userSelect = ''; });
+    })();
+
+    /* ── IMAGE ACCORDION ─────────────────────────────────────── */
+    (function () {
+      const accItems = Array.from(document.querySelectorAll('#heroAccordion .acc-item'));
+      if (!accItems.length) return;
+
+      function setAccActive(i) {
+        accItems.forEach((el, j) => el.classList.toggle('is-active', i === j));
+      }
+
+      accItems.forEach((item, i) => {
+        // Mouse hover (desktop)
+        item.addEventListener('mouseenter', () => setAccActive(i));
+        // Click / tap (touch)
+        item.addEventListener('click', () => setAccActive(i));
+        // Keyboard
+        item.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setAccActive(i); }
+        });
+      });
+    })();
+
+    /* ── TRUST CAROUSEL ───────────────────────────────────────── */
+    const trustTrack    = document.getElementById('trustTrack');
+    const trustDots     = Array.from(document.querySelectorAll('#trustDots .trust-dot'));
+    const trustProgress = document.getElementById('trustProgressFill');
+    const TRUST_DUR     = 4000;
+    let   trustCur      = 0;
+    let   trustTimer    = null;
+
+    function trustGoTo(idx) {
+      trustDots[trustCur].classList.remove('active');
+      trustCur = (idx + 4) % 4;
+      trustTrack.style.transform = `translateX(-${trustCur * 100}%)`;
+      trustDots[trustCur].classList.add('active');
+      startTrustProgress();
+    }
+
+    function startTrustProgress() {
+      trustProgress.style.transition = 'none';
+      trustProgress.style.width = '0%';
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          trustProgress.style.transition = `width ${TRUST_DUR}ms linear`;
+          trustProgress.style.width = '100%';
+        });
+      });
+      clearTimeout(trustTimer);
+      trustTimer = setTimeout(() => trustGoTo(trustCur + 1), TRUST_DUR);
+    }
+
+    trustDots.forEach(d => {
+      d.addEventListener('click', () => { clearTimeout(trustTimer); trustGoTo(parseInt(d.dataset.trust)); });
+    });
+
+    // Touch swipe for trust carousel
+    let trustTouchX = null;
+    trustTrack.addEventListener('touchstart', e => { trustTouchX = e.touches[0].clientX; }, { passive: true });
+    trustTrack.addEventListener('touchend',   e => {
+      if (trustTouchX === null) return;
+      const diff = trustTouchX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) { clearTimeout(trustTimer); trustGoTo(diff > 0 ? trustCur + 1 : trustCur - 1); }
+      trustTouchX = null;
+    }, { passive: true });
+
+    startTrustProgress();
+
+  })();
   </script>
 </body>
 </html>
