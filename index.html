@@ -30,13 +30,13 @@
   </script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html  { scroll-behavior: smooth; }
+    html  { scroll-behavior: smooth; overflow-x: hidden; }
     body  {
       font-family: 'Outfit', sans-serif;
       background: #0d0d0d;
       color: #f0f0f0;
       -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
+      overflow-x: hidden !important;
     }
 
     /* ─── TYPOGRAPHY — Inter throughout ────────────────────────── */
@@ -89,7 +89,7 @@
       gap: 0.25rem;
       padding: 0.4rem 0.4rem 0.4rem 1.25rem;
       border-radius: 999px;
-      background: rgba(13, 13, 13, 0.82);
+      background: #0d0d0d;
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
       border: 1px solid rgba(255, 255, 255, 0.1);
@@ -99,7 +99,7 @@
       transition: box-shadow 0.3s ease;
     }
     .nav-pill.scrolled {
-      background: rgba(13, 13, 13, 0.95);
+      background: #0d0d0d;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.07);
     }
     .nav-link {
@@ -261,12 +261,7 @@
     .svc-slide.active .svc-slide-bg { transform: scale(1); }
     .svc-slide-overlay {
       position: absolute; inset: 0;
-      background: linear-gradient(
-        135deg,
-        rgba(6,13,27,0.88) 0%,
-        rgba(6,13,27,0.65) 50%,
-        rgba(6,13,27,0.45) 100%
-      );
+      background: rgba(0, 0, 0, 0.62);
     }
     .svc-slide-content {
       position: absolute; bottom: 2.5rem; left: 2.5rem; right: 2.5rem;
@@ -284,7 +279,7 @@
       align-items: center;
       justify-content: center;
       pointer-events: none;
-      padding: 0 2rem 5rem;
+      padding: 0 2rem;
     }
     .svc-quote-rule {
       width: 48px;
@@ -305,7 +300,7 @@
     }
     .svc-quote-main em {
       font-style: normal;
-      color: rgba(255,255,255,0.45);
+      color: rgba(255,255,255,0.92);
     }
     .svc-quote-sub {
       font-family: 'Outfit', sans-serif;
@@ -313,7 +308,7 @@
       font-size: clamp(0.75rem, 1.4vw, 0.9375rem);
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.7);
       margin-top: 1.25rem;
       text-align: center;
     }
@@ -816,15 +811,29 @@
       padding-left: 1.5rem;
       padding-right: 1.5rem;
     }
-    @media (min-width: 640px)  { .ftr-car-track { padding-left: 2rem; padding-right: 2rem; } }
-    @media (min-width: 1024px) { .ftr-car-track { padding-left: max(2rem, calc(50vw - 640px + 2rem)); padding-right: max(2rem, calc(50vw - 640px + 2rem)); } }
+    @media (min-width: 640px) { .ftr-car-track { padding-left: 2rem; padding-right: 2rem; } }
+    /* On desktop: use pseudo-element spacers to truly centre the card row */
+    @media (min-width: 1024px) {
+      .ftr-car-track {
+        padding-left: 0;
+        padding-right: 0;
+        justify-content: unset;
+        scroll-snap-type: x mandatory;
+      }
+      .ftr-car-track::before,
+      .ftr-car-track::after {
+        content: '';
+        flex: 0 0 calc(50% - 190px - 0.625rem);
+        /* 190px = half card width (380/2); 0.625rem = half gap */
+      }
+    }
     .ftr-car-track:active { cursor: grabbing; }
     .ftr-car-track::-webkit-scrollbar { display: none; }
 
     .ftr-car-item {
       flex: 0 0 auto;
       width: min(380px, 78vw);
-      scroll-snap-align: start;
+      scroll-snap-align: center;
     }
 
     .ftr-card {
@@ -916,7 +925,7 @@
 
       <!-- Logo -->
       <a href="#" class="flex items-center mr-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded" aria-label="MD Recovery home">
-        <img src="mdlogo-cropped.jpeg" alt="MD Recovery" style="height:38px;width:auto;display:block;mix-blend-mode:lighten;" />
+        <img src="mdlogo-cropped.jpeg" alt="MD Recovery" style="height:52px;width:auto;display:block;mix-blend-mode:lighten;" />
       </a>
 
       <!-- Desktop links -->
@@ -1250,140 +1259,15 @@
   </section>
 
       <!-- Slider -->
-      <div class="svc-slider-wrap" id="svcSlider">
-
-        <!-- Progress bar -->
-        <div class="svc-progress"><div class="svc-progress-fill" id="svcProgressFill"></div></div>
-
-        <!-- Slide 1: Breakdown & Recovery — real truck photo -->
-        <div class="svc-slide active" data-index="0">
-          <img class="svc-slide-bg"
-               src="WhatsApp%20Image%202026-04-07%20at%2016.35.53.jpeg"
-               alt="MD Recovery truck with forklift, Cavan" />
-          <div class="svc-slide-overlay"></div>
-          <div class="svc-brand-quote" aria-hidden="true">
-            <div class="svc-quote-rule"></div>
-            <p class="svc-quote-main">You Call.<br/><em>We Haul.</em></p>
-            <p class="svc-quote-sub">Cavan &amp; Surrounding Counties</p>
-          </div>
-          <div class="svc-slide-content">
-            <span class="svc-num">01 / 04</span>
-            <div class="svc-icon-wrap">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/>
-                <circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
-              </svg>
-            </div>
-            <h3 class="svc-title">Breakdown &amp; Recovery</h3>
-            <p class="svc-desc">24/7 roadside call-out, towing, and accident recovery across Cavan and beyond. We mobilise fast — wherever you're stranded.</p>
-            <a href="tel:0852330052" class="svc-cta">
-              Call now
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-          </div>
-        </div>
-
-        <!-- Slide 2: Storage Facility -->
-        <div class="svc-slide" data-index="1">
-          <img class="svc-slide-bg"
-               src="https://picsum.photos/seed/vehicle-secure-storage/1400/800"
-               alt="Secure vehicle storage facility" />
-          <div class="svc-slide-overlay"></div>
-          <div class="svc-brand-quote" aria-hidden="true">
-            <div class="svc-quote-rule"></div>
-            <p class="svc-quote-main">You Call.<br/><em>We Haul.</em></p>
-            <p class="svc-quote-sub">Cavan &amp; Surrounding Counties</p>
-          </div>
-          <div class="svc-slide-content">
-            <span class="svc-num">02 / 04</span>
-            <div class="svc-icon-wrap">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                <polyline points="9 22 9 12 15 12 15 22"/>
-              </svg>
-            </div>
-            <h3 class="svc-title">Storage Facility</h3>
-            <p class="svc-desc">Secure short and long-term vehicle storage while you arrange next steps. Your vehicle is safe with us.</p>
-            <a href="tel:0852330052" class="svc-cta">
-              Enquire now
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-          </div>
-        </div>
-
-        <!-- Slide 3: Mechanical Repairs -->
-        <div class="svc-slide" data-index="2">
-          <img class="svc-slide-bg"
-               src="https://picsum.photos/seed/car-workshop-mechanic/1400/800"
-               alt="Professional car mechanic workshop" />
-          <div class="svc-slide-overlay"></div>
-          <div class="svc-brand-quote" aria-hidden="true">
-            <div class="svc-quote-rule"></div>
-            <p class="svc-quote-main">You Call.<br/><em>We Haul.</em></p>
-            <p class="svc-quote-sub">Cavan &amp; Surrounding Counties</p>
-          </div>
-          <div class="svc-slide-content">
-            <span class="svc-num">03 / 04</span>
-            <div class="svc-icon-wrap">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
-              </svg>
-            </div>
-            <h3 class="svc-title">Mechanical Repairs</h3>
-            <p class="svc-desc">Full servicing and mechanical work — from minor fixes to major jobs. Completed professionally, every time.</p>
-            <a href="tel:0852330052" class="svc-cta">
-              Book a repair
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-          </div>
-        </div>
-
-        <!-- Slide 4: Diagnostic Scans -->
-        <div class="svc-slide" data-index="3">
-          <img class="svc-slide-bg"
-               src="https://picsum.photos/seed/car-obd-diagnostics/1400/800"
-               alt="Vehicle OBD diagnostic scan" />
-          <div class="svc-slide-overlay"></div>
-          <div class="svc-brand-quote" aria-hidden="true">
-            <div class="svc-quote-rule"></div>
-            <p class="svc-quote-main">You Call.<br/><em>We Haul.</em></p>
-            <p class="svc-quote-sub">Cavan &amp; Surrounding Counties</p>
-          </div>
-          <div class="svc-slide-content">
-            <span class="svc-num">04 / 04</span>
-            <div class="svc-icon-wrap">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-                <line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
-                <path d="M7 10h2l2-4 2 8 2-4h2"/>
-              </svg>
-            </div>
-            <h3 class="svc-title">Diagnostic Scans</h3>
-            <p class="svc-desc">Plug-in OBD diagnostic scans to identify faults fast. Know exactly what's wrong before spending a penny on repairs.</p>
-            <a href="tel:0852330052" class="svc-cta">
-              Book a scan
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-          </div>
-        </div>
-
-      </div><!-- /svc-slider-wrap -->
-
-      <!-- Controls row below slider -->
-      <div class="svc-controls mt-4">
-        <div class="svc-dots" id="svcDots">
-          <button class="svc-dot active" data-slide="0" aria-label="Go to slide 1"></button>
-          <button class="svc-dot" data-slide="1" aria-label="Go to slide 2"></button>
-          <button class="svc-dot" data-slide="2" aria-label="Go to slide 3"></button>
-          <button class="svc-dot" data-slide="3" aria-label="Go to slide 4"></button>
-        </div>
-        <div class="svc-arrows sm:hidden">
-          <button class="svc-arrow" id="svcPrev" aria-label="Previous service">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-          </button>
-          <button class="svc-arrow" id="svcNext" aria-label="Next service">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-          </button>
+      <div class="svc-slider-wrap">
+        <img class="svc-slide-bg"
+             src="WhatsApp%20Image%202026-04-07%20at%2016.35.53.jpeg"
+             alt="MD Recovery truck with forklift, Cavan" />
+        <div class="svc-slide-overlay"></div>
+        <div class="svc-brand-quote">
+          <div class="svc-quote-rule"></div>
+          <p class="svc-quote-main">You Call.<br/><em>We Haul.</em></p>
+          <p class="svc-quote-sub">Cavan &amp; Surrounding Counties</p>
         </div>
       </div>
 
