@@ -778,21 +778,29 @@
     .ftr-cta-link:hover { gap: 0.5rem; color: #2c6fe0; }
     .ftr-arrows { display: flex; gap: 0.5rem; align-self: flex-end; }
     .ftr-arr-btn {
-      width: 2.5rem; height: 2.5rem; border-radius: 50%;
-      background: #fff;
-      border: 1.5px solid rgba(9,21,38,0.12);
+      width: 2.75rem; height: 2.75rem; border-radius: 50%;
+      background: rgba(20,20,20,0.07);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(20,20,20,0.14);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.7),
+        0 2px 8px rgba(0,0,0,0.09),
+        0 0 0 0.5px rgba(0,0,0,0.06);
       display: flex; align-items: center; justify-content: center;
       cursor: pointer; color: #141414;
-      box-shadow: 0 2px 6px rgba(9,21,38,0.07), 0 0 0 1px rgba(26,95,212,0.04);
-      transition: background 0.15s, border-color 0.15s, transform 0.18s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.15s;
+      transition: background 0.2s, transform 0.18s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s;
     }
     .ftr-arr-btn:hover {
-      background: #1A5FD4; border-color: #1A5FD4; color: #fff;
-      transform: scale(1.07);
-      box-shadow: 0 4px 14px rgba(26,95,212,0.35);
+      background: rgba(20,20,20,0.12);
+      transform: translateY(-2px);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.8),
+        0 4px 14px rgba(0,0,0,0.14),
+        0 0 0 0.5px rgba(0,0,0,0.08);
     }
-    .ftr-arr-btn:active { transform: scale(0.96); }
-    .ftr-arr-btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none !important; box-shadow: none; pointer-events: none; }
+    .ftr-arr-btn:active { transform: translateY(1px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 1px 3px rgba(0,0,0,0.1); }
+    .ftr-arr-btn:disabled { opacity: 0.32; cursor: not-allowed; pointer-events: none; }
     .ftr-arr-btn:focus-visible { outline: 2px solid #1A5FD4; outline-offset: 2px; }
 
     /* Carousel outer — clips the scrollable track */
@@ -895,6 +903,19 @@
       transition: gap 0.15s ease, color 0.15s ease;
     }
     .ftr-card:hover .ftr-read-more { gap: 0.625rem; color: #1A5FD4; }
+    .ftr-card-extras {
+      list-style: none; margin: 0 0 1rem; padding: 0;
+      display: flex; flex-direction: column; gap: 0.3rem;
+    }
+    .ftr-card-extras li {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.775rem; font-weight: 400;
+      color: #999999; line-height: 1.4;
+      padding-left: 0.875rem; position: relative;
+    }
+    .ftr-card-extras li::before {
+      content: '·'; position: absolute; left: 0; color: #1A5FD4; font-weight: 700;
+    }
 
     /* ─── MOBILE OVERRIDES ──────────────────────────────────────── */
     @media (max-width: 768px) {
@@ -917,8 +938,8 @@
     ═══════════════════════════════════════════════════════════ */
     @media (max-width: 767px) {
 
-      /* ── Carousel arrows: swipe is enough on mobile ─────── */
-      .ftr-arr-btn { display: none !important; }
+      /* ── Carousel arrows: visible on mobile, slightly smaller ── */
+      .ftr-arr-btn { width: 2.25rem !important; height: 2.25rem !important; }
 
       /* ── Section padding: tighter on mobile ─────────────── */
       #services  { padding-top: 2.5rem !important; padding-bottom: 3.5rem !important; }
@@ -1214,6 +1235,11 @@
             </span>
             <h3 class="ftr-card-title">Breakdown &amp; Recovery</h3>
             <p class="ftr-card-desc">24/7 roadside call-out, towing and accident recovery across Cavan and beyond. We mobilise fast — wherever you're stranded.</p>
+            <ul class="ftr-card-extras">
+              <li>Jump starts</li>
+              <li>End-of-life vehicles collected</li>
+              <li>Auction &amp; trade collections</li>
+            </ul>
             <span class="ftr-read-more">
               Call now
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -1235,6 +1261,11 @@
             </span>
             <h3 class="ftr-card-title">Vehicle Transport</h3>
             <p class="ftr-card-desc">Safe flatbed transport for cars, motorcycles and light commercials — anywhere you need them moved, collected or delivered.</p>
+            <ul class="ftr-card-extras">
+              <li>Transport to VRT, DOE &amp; NCT</li>
+              <li>Auction &amp; dealer collections</li>
+              <li>Nationwide delivery available</li>
+            </ul>
             <span class="ftr-read-more">
               Book transport
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -1256,6 +1287,11 @@
             </span>
             <h3 class="ftr-card-title">Storage Facility</h3>
             <p class="ftr-card-desc">Secure short and long-term vehicle storage while you arrange next steps. Gated, covered and properly managed.</p>
+            <ul class="ftr-card-extras">
+              <li>CCTV monitored 24/7</li>
+              <li>Electric gate access</li>
+              <li>Short &amp; long-term terms</li>
+            </ul>
             <span class="ftr-read-more">
               Enquire now
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -1418,7 +1454,7 @@
           <span class="label-caps" style="color:#1A5FD4; display:block; margin-bottom:0.75rem;">Coverage Area</span>
           <h2 class="heading-lg mb-6" style="font-size:clamp(1.75rem,4vw,2.75rem); color:#141414;">Where We Operate</h2>
           <p class="body-light mb-8" style="font-size:1.0625rem; color:#666666; max-width:38rem;">
-            Based in Cavan and covering the surrounding counties — we're never far away when you need us most. Whether you're on a back road in Leitrim or a motorway in Meath, we'll get to you.
+            Based in Cavan and operating across a wide stretch of Ireland — north and south. Whether you're on a back road in Leitrim or heading into Dublin, we'll get to you.
           </p>
 
           <div style="display:flex;flex-wrap:wrap;gap:0.625rem;margin-bottom:2.5rem;">
@@ -1428,6 +1464,14 @@
             <span class="county-pill"><span style="width:6px;height:6px;border-radius:50%;background:#1A5FD4;display:inline-block;"></span>Leitrim</span>
             <span class="county-pill"><span style="width:6px;height:6px;border-radius:50%;background:#1A5FD4;display:inline-block;"></span>Longford</span>
             <span class="county-pill"><span style="width:6px;height:6px;border-radius:50%;background:#1A5FD4;display:inline-block;"></span>Roscommon</span>
+            <span class="county-pill"><span style="width:6px;height:6px;border-radius:50%;background:#1A5FD4;display:inline-block;"></span>Dublin</span>
+            <span class="county-pill"><span style="width:6px;height:6px;border-radius:50%;background:#1A5FD4;display:inline-block;"></span>Kildare</span>
+            <span class="county-pill"><span style="width:6px;height:6px;border-radius:50%;background:#1A5FD4;display:inline-block;"></span>Wicklow</span>
+            <span class="county-pill"><span style="width:6px;height:6px;border-radius:50%;background:rgba(26,95,212,0.45);display:inline-block;"></span>Down</span>
+            <span class="county-pill"><span style="width:6px;height:6px;border-radius:50%;background:rgba(26,95,212,0.45);display:inline-block;"></span>Armagh</span>
+            <span class="county-pill"><span style="width:6px;height:6px;border-radius:50%;background:rgba(26,95,212,0.45);display:inline-block;"></span>Antrim</span>
+            <span class="county-pill"><span style="width:6px;height:6px;border-radius:50%;background:rgba(26,95,212,0.45);display:inline-block;"></span>Fermanagh</span>
+            <span class="county-pill"><span style="width:6px;height:6px;border-radius:50%;background:rgba(26,95,212,0.45);display:inline-block;"></span>Tyrone</span>
             <span style="display:inline-flex;align-items:center;padding:0.5rem 1rem;border-radius:99px;border:1px dashed rgba(26,95,212,0.35);font-size:0.8125rem;font-weight:500;color:#1A5FD4;background:rgba(26,95,212,0.05);">&amp; more on request</span>
           </div>
 
@@ -1515,8 +1559,18 @@
             <span class="label-caps" style="color:#888888;font-size:0.6rem;">Transport &amp; Repairs · Cavan, Ireland</span>
           </div>
           <p class="body-light" style="font-size:0.75rem;color:rgba(180,180,180,0.6);max-width:20rem;">
-            Fast, professional recovery, repairs &amp; storage across Cavan and surrounding counties.
+            Fast, professional recovery, repairs &amp; storage across Cavan and the wider Ireland.
           </p>
+          <!-- Facebook social button -->
+          <a href="https://www.facebook.com/profile.php?id=61586166381419"
+             target="_blank" rel="noopener noreferrer"
+             aria-label="Find us on Facebook"
+             style="display:inline-flex;align-items:center;gap:0.5rem;margin-top:1rem;padding:0.5rem 0.875rem;border-radius:8px;background:rgba(24,119,242,0.12);border:1px solid rgba(24,119,242,0.25);color:#5b9bf8;font-family:'Outfit',sans-serif;font-size:0.75rem;font-weight:600;text-decoration:none;transition:background 0.2s,color 0.2s;"
+             onmouseover="this.style.background='rgba(24,119,242,0.22)';this.style.color='#80b3ff';"
+             onmouseout="this.style.background='rgba(24,119,242,0.12)';this.style.color='#5b9bf8';">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            Find us on Facebook
+          </a>
         </div>
         <nav style="display:flex;flex-wrap:wrap;gap:1.25rem 2.5rem;" aria-label="Footer navigation">
           <a href="#services"  style="font-size:0.75rem;color:rgba(180,180,180,0.6);transition:color 0.15s;" onmouseover="this.style.color='#888888'" onmouseout="this.style.color='rgba(180,180,180,0.6)'">Services</a>
@@ -1524,10 +1578,11 @@
           <a href="#coverage"  style="font-size:0.75rem;color:rgba(180,180,180,0.6);transition:color 0.15s;" onmouseover="this.style.color='#888888'" onmouseout="this.style.color='rgba(180,180,180,0.6)'">Coverage</a>
           <a href="tel:0852330052" style="font-size:0.75rem;color:#1A5FD4;transition:color 0.15s;" onmouseover="this.style.color='#3578e8'" onmouseout="this.style.color='#1A5FD4'">085 233 0052</a>
           <a href="mailto:Martindempsey5588@gmail.com" style="font-size:0.75rem;color:rgba(180,180,180,0.6);transition:color 0.15s;" onmouseover="this.style.color='#888888'" onmouseout="this.style.color='rgba(180,180,180,0.6)'">Email</a>
+          <a href="https://www.facebook.com/profile.php?id=61586166381419" target="_blank" rel="noopener noreferrer" style="font-size:0.75rem;color:#5b9bf8;transition:color 0.15s;" onmouseover="this.style.color='#80b3ff'" onmouseout="this.style.color='#5b9bf8'">Facebook</a>
         </nav>
       </div>
       <div style="margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,0.05);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:0.75rem;">
-        <p style="font-size:0.7rem;color:rgba(180,180,180,0.3);">© 2026 MD Recovery, Transport &amp; Repairs. Cavan, Ireland.</p>
+        <p style="font-size:0.7rem;color:rgba(180,180,180,0.3);">© 2026 MD Recovery, Transport &amp; Repairs · 2km Shercock, Canningstown Road, Cavan.</p>
         <p style="font-size:0.7rem;color:rgba(180,180,180,0.3);">All rights reserved.</p>
       </div>
     </div>
