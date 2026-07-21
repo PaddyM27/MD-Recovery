@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin/
 Disallow: /wp-admin/
 
-Sitemap: https://mdrecovery.ie/sitemap.xml
+Sitemap: https://www.mdrecovery.ie/sitemap.xml
